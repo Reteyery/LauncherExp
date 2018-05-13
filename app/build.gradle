@@ -33,6 +33,7 @@ repositories {
         url uri('http://maven.qingting.fm/')
     }
     mavenCentral()
+    google()
 }
 
 dependencies {
@@ -53,6 +54,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.4'
     implementation 'fm.qingting.open.android:qtsdkplayer:0.0.4'
     implementation 'fm.qingting.open.android:qtsdk:0.0.4'
+    //noinspection GradleDependency
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 
     implementation 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife:8.7.0'

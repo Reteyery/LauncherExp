@@ -3,22 +3,25 @@ package com.reteyery.launcherexp;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
-import java.util.List;
+import com.bumptech.glide.Glide;
+import com.reteyery.launcherexp.base.BaseRvAdapter;
 
-import fm.qingting.qtsdk.QTException;
 import fm.qingting.qtsdk.QTSDK;
-import fm.qingting.qtsdk.callbacks.QTCallback;
 import fm.qingting.qtsdk.entity.Category;
 import fm.qingting.qtsdk.entity.Channel;
-import fm.qingting.qtsdk.entity.QTListEntity;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class MainActivity extends AppCompatActivity {
 
     TabLayout mTabLayout;
+    RecyclerView mRecyclerview;
+    BaseRvAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         mTabLayout = findViewById(R.id.tl_title);
+        mRecyclerview = findViewById(R.id.list);
+
+        listAdapter  = new BaseRvAdapter<Channel>() {
+            @Override
+            public void bindData(BaseRvAdapter<Channel>.SimpleHolder holder, Channel object) {
+                holder.mTextView.setText(object.getTitle());
+                Glide.with(holder.itemView.getContext()).load(object.getThumbs().getMediumThumb()).into(holder.mImageView);
+                holder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Intent intent = new Intent(v.getContext(), DetailsActivity.class);
+//                        intent.putExtra(DetailsActivity.CHANNEL_ID, object.getId());
+//                        v.getContext().startActivity(intent);
+                    }
+                });
+            }
+        };
+
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        mRecyclerview.setAdapter(listAdapter);
+
         QTSDK.requestChannelOnDemandCategories((result, e) -> {
             if (e == null) {
                 if (result != null && result.size() > 0) {
@@ -49,14 +73,34 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
             }
         });
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Category category = (Category) tab.getTag();
+                if (category != null) {
+                    requestList(category.getId());
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void requestList(int tabId) {
         QTSDK.requestChannelOnDemandList(tabId,null,1, (result, e) -> {
             if (e == null) {
                 if (result != null) {
-//                        listAdapter.items = result.getData();
-//                        listAdapter.notifyDataSetChanged();
+                        listAdapter.items = result.getData();
+                        listAdapter.notifyDataSetChanged();
                 }
             }else{
                 Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
