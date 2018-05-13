@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--隐藏状态栏-->
+    <style name="AppTheme.NoBar">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="themeactivity" parent="android:Theme">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:windowNoTitle">true</item>
