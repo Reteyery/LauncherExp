@@ -15,18 +15,34 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="@color/colorAccent">
-            <android.support.constraint.ConstraintLayout
+            android:background="@color/bg_black">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@color/bg_black"
                 tools:ignore="NestedWeights">
-
-                <com.reteyery.launcherexp.widget.lrc.LrcView
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_constraintDimensionRatio="1:1"/>
-            </android.support.constraint.ConstraintLayout>
+                    tools:ignore="NestedWeights">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.reteyery.launcherexp.widget.lrc.LrcView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintDimensionRatio="1:1"/>
+                    </android.support.constraint.ConstraintLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/play_disc_halo" />
+                </FrameLayout>
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
