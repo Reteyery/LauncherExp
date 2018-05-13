@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
 import fm.qingting.qtsdk.QTException;
 import fm.qingting.qtsdk.QTSDK;
 import fm.qingting.qtsdk.callbacks.QTCallback;
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -36,40 +34,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         mTabLayout = findViewById(R.id.tl_title);
-        QTSDK.requestChannelOnDemandCategories(new QTCallback<List<Category>>() {
-            @Override
-            public void done(List<Category> result, QTException e) {
-                if (e == null) {
-                    if (result != null && result.size() > 0) {
-                        for (Category category : result) {
-                            TabLayout.Tab tab = mTabLayout.newTab();
-                            tab.setText(category.getName());
-                            tab.setTag(category);
-                            mTabLayout.addTab(tab);
-                        }
-                        requestList(result.get(0).getId());
+        QTSDK.requestChannelOnDemandCategories((result, e) -> {
+            if (e == null) {
+                if (result != null && result.size() > 0) {
+                    for (Category category : result) {
+                        TabLayout.Tab tab = mTabLayout.newTab();
+                        tab.setText(category.getName());
+                        tab.setTag(category);
+                        mTabLayout.addTab(tab);
                     }
-                } else {
-                    Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
+                    requestList(result.get(0).getId());
                 }
+            } else {
+                Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
             }
         });
     }
 
     private void requestList(int tabId) {
-        QTSDK.requestChannelOnDemandList(tabId,null,1,new QTCallback<QTListEntity<Channel>>() {
-            @Override
-            public void done(QTListEntity<Channel> result, QTException e) {
-                if (e == null) {
-                    if (result != null) {
+        QTSDK.requestChannelOnDemandList(tabId,null,1, (result, e) -> {
+            if (e == null) {
+                if (result != null) {
 //                        listAdapter.items = result.getData();
 //                        listAdapter.notifyDataSetChanged();
-                    }
-                }else{
-                    Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
                 }
+            }else{
+                Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
             }
-
         });
     }
 }
