@@ -98,10 +98,15 @@
                 app:tabIndicatorColor="@color/font_red"
                 app:tabSelectedTextColor="@color/font_red"
                 app:tabGravity="center"/>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 />
         </LinearLayout>
     </LinearLayout>
