@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="height_tab_layout">30dp</dimen>
+    <dimen name="height_tab_layout">120dp</dimen>
+    <dimen name="height_width_iv_play">40dp</dimen>
+    <dimen name="height_width_iv_play_more">50dp</dimen>
+    <dimen name="height_title_layout">35dp</dimen>
+
+    <dimen name="margin_bound">10dp</dimen>
+    <dimen name="margin_bound_2x">20dp</dimen>
+    <dimen name="margin_bound_3x">30dp</dimen>
+    <dimen name="margin_bound_4x">40dp</dimen>
+    <dimen name="margin_bound_5x">50dp</dimen>
+    <dimen name="margin_bound_6x">60dp</dimen>
+    <dimen name="margin_bound_7x">70dp</dimen>
+
 </resources>
