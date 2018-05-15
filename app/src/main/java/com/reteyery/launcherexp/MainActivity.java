@@ -1,5 +1,6 @@
 package com.reteyery.launcherexp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.reteyery.launcherexp.base.BaseActivity;
-import com.reteyery.launcherexp.base.BaseRvAdapter;
+import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +55,8 @@ public class MainActivity extends BaseActivity {
         mRecyclerview = findViewById(R.id.list);
 
         ivPlay.setOnClickListener(view -> {
+            Intent intent = new Intent(this, RadioMainActivity.class);
+            MainActivity.this.startActivity(intent);
             Toast.makeText(MainActivity.this, "click", LENGTH_SHORT).show();
         });
         listAdapter = new SimpleAdapter<Channel>() {

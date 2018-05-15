@@ -1,4 +1,4 @@
-package com.reteyery.launcherexp;
+package com.reteyery.launcherexp.buss.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.reteyery.launcherexp.R;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 
 public abstract class SimpleAdapter<T> extends RecyclerView.Adapter {
 
-    List<T> items;
+    public List<T> items;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,10 +43,10 @@ public abstract class SimpleAdapter<T> extends RecyclerView.Adapter {
         return 0;
     }
 
-    class SimpleHolder extends RecyclerView.ViewHolder {
-        ImageView mImageView;
-        LinearLayout mLinearLayout;
-        TextView mTextView;
+    public class SimpleHolder extends RecyclerView.ViewHolder {
+        public ImageView mImageView;
+        public LinearLayout mLinearLayout;
+        public TextView mTextView;
 
         public SimpleHolder(View itemView) {
             super(itemView);
