@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
 
     TabLayout mTabLayout;
     RecyclerView mRecyclerview;
-    BaseRvAdapter listAdapter;
+    SimpleAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity {
         ivPlay.setOnClickListener(view -> {
             Toast.makeText(MainActivity.this, "click", LENGTH_SHORT).show();
         });
-        listAdapter = new BaseRvAdapter<Channel>() {
+        listAdapter = new SimpleAdapter<Channel>() {
             @Override
             public void bindData(SimpleHolder holder, Channel object) {
                 holder.mTextView.setText(object.getTitle());
