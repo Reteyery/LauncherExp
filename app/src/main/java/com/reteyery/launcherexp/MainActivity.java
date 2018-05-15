@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
         ivPlay.setOnClickListener(view -> {
             Intent intent = new Intent(this, RadioMainActivity.class);
             MainActivity.this.startActivity(intent);
-            Toast.makeText(MainActivity.this, "click", LENGTH_SHORT).show();
+//            Toast.makeText(MainActivity.this, "click", LENGTH_SHORT).show();
         });
         listAdapter = new SimpleAdapter<Channel>() {
             @Override

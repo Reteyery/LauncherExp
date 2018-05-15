@@ -86,7 +86,7 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
                 if (e == null) {
                     if (result != null) {
                         RadioListFragment radioListFragment = (RadioListFragment) fragmentList.get(0);
-                        
+
                         radioListFragment.setChannelList(result.getData());
                     }
                 }else{
@@ -114,18 +114,18 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
 
     class RadioPagerAdapter extends FragmentPagerAdapter{
 
-        public RadioPagerAdapter(FragmentManager fm) {
+        RadioPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public BaseFragment getItem(int position) {
-            return null;
+            return fragmentList.get(position);
         }
 
         @Override
         public int getCount() {
-            return 0;
+            return fragmentList.size();
         }
     }
 }
