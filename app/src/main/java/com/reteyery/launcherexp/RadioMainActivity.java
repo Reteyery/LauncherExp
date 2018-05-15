@@ -24,7 +24,7 @@ import fm.qingting.qtsdk.entity.QTListEntity;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class RadioMainActivity extends BaseActivity {
+public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     @BindView(R.id.iv_cover)
     ImageView ivCover;
     @BindView(R.id.iv_previous)
@@ -54,6 +54,7 @@ public class RadioMainActivity extends BaseActivity {
 
     private void initData() {
         requestCategory();
+        viewPager.addOnPageChangeListener(this);
     }
 
     private void requestCategory() {
@@ -94,6 +95,21 @@ public class RadioMainActivity extends BaseActivity {
             }
 
         });
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     class RadioPagerAdapter extends FragmentPagerAdapter{
