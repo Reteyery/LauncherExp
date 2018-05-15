@@ -1,19 +1,14 @@
 package com.reteyery.launcherexp;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.base.BaseFragment;
-import com.reteyery.launcherexp.buss.adapter.RadioListAdapter;
 import com.reteyery.launcherexp.buss.fragment.RadioListFragment;
 
 import java.util.ArrayList;
