@@ -66,6 +66,8 @@ public class RadioMainActivity extends BaseActivity {
             if (e == null) {
                 if (result != null && result.size() > 0) {
                     tabSize = result.size();
+                    viewPager.setAdapter(new RadioPagerAdapter(getSupportFragmentManager()));
+                    tabLayout.setupWithViewPager(viewPager);
                     for (Category category : result) {
                         TabLayout.Tab tab = tabLayout.newTab();
                         tab.setText(category.getName());
@@ -73,8 +75,6 @@ public class RadioMainActivity extends BaseActivity {
                         tabLayout.addTab(tab);
                         fragmentList.add(new RadioListFragment());
                     }
-                    viewPager.setAdapter(new RadioPagerAdapter(getSupportFragmentManager()));
-//                    tabLayout.setupWithViewPager(viewPager);
                     requestList(result.get(0).getId());
                 }
             } else {
