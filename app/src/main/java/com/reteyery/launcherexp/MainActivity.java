@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fm.qingting.qtsdk.QTException;
@@ -22,6 +24,9 @@ import fm.qingting.qtsdk.QTSDK;
 import fm.qingting.qtsdk.callbacks.QTCallback;
 import fm.qingting.qtsdk.entity.Category;
 import fm.qingting.qtsdk.entity.Channel;
+import fm.qingting.qtsdk.entity.ChannelProgram;
+import fm.qingting.qtsdk.entity.Edition;
+import fm.qingting.qtsdk.entity.QTListEntity;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -39,10 +44,15 @@ public class MainActivity extends BaseActivity {
     ImageView ivNext;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-
+    @BindView(R.id.recyclerview_detail_list)
+    RecyclerView detailRecyclerview;
+    @BindView(R.id.tl_title)
     TabLayout mTabLayout;
+    @BindView(R.id.recyclerview_radio_list)
     RecyclerView mRecyclerview;
-    SimpleAdapter listAdapter;
+
+    SimpleAdapter listAdapter, detailListAdapter;
+    int channelId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +72,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
-        mTabLayout = findViewById(R.id.tl_title);
-        mRecyclerview = findViewById(R.id.list);
 
         ivPlay.setOnClickListener(view -> {
             Intent intent = new Intent(this, RadioMainActivity.class);
@@ -73,6 +81,7 @@ public class MainActivity extends BaseActivity {
         listAdapter = new SimpleAdapter<Channel>() {
             @Override
             public void bindData(SimpleHolder holder, Channel object) {
+                channelId = object.getId();
                 holder.mTextView.setText(object.getTitle());
                 Glide.with(holder.itemView.getContext()).load(object.getThumbs().getMediumThumb()).into(holder.mImageView);
                 holder.mLinearLayout.setOnClickListener((View v) -> {
@@ -80,13 +89,36 @@ public class MainActivity extends BaseActivity {
 //                        intent.putExtra(DetailsActivity.CHANNEL_ID, object.getId());
 //                        v.getContext().startActivity(intent);
 
-                    requestChannelDetails(object.getId());
+                    requestChannelDetails(channelId);
+                    requestChannelPrograms(channelId);
                 });
             }
         };
 
+        detailListAdapter = new SimpleAdapter<ChannelProgram>() {
+            @Override
+            public void bindData(SimpleHolder holder, ChannelProgram object) {
+                holder.mTextView.setText(object.getTitle());
+                if (object.getThumbs() != null) {
+                    Glide.with(holder.itemView.getContext()).load(object.getThumbs().getMediumThumb()).into(holder.mImageView);
+                }
+                holder.mLinearLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, object.getId(), (result, e) -> {
+                    if (e == null) {
+//                        url.setText("播放地址：" + result.getEditions().get(0).getUrl().get(0));
+                        ArrayList<Edition> editions = new ArrayList<>();
+                        editions.addAll(result.getEditions());
+//                        PlayerActivity.Companion.start(DetailsActivity.this,editions);
+                    } else {
+                        Toast.makeText(v.getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }));
+            }
+        };
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         mRecyclerview.setAdapter(listAdapter);
+
+        detailRecyclerview.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        detailRecyclerview.setAdapter(detailListAdapter);
 
         QTSDK.requestChannelOnDemandCategories((result, e) -> {
             if (e == null) {
@@ -121,6 +153,18 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+    }
+
+    private void requestChannelPrograms(int channelId) {
+        QTSDK.requestChannelOnDemandProgramList(channelId, 1, new QTCallback<QTListEntity<ChannelProgram>>() {
+            @Override
+            public void done(QTListEntity<ChannelProgram> result, QTException e) {
+                if (e == null) {
+                    detailListAdapter.items = result.getData();
+                    detailListAdapter.notifyDataSetChanged();
+                }
             }
         });
     }

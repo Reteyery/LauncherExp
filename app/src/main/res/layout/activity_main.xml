@@ -14,8 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="@color/bg_black">
+            android:orientation="vertical">
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -36,7 +35,8 @@
                 </android.support.constraint.ConstraintLayout>
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_bound_0.2x">
                     <ImageView
                         android:id="@+id/iv_cover"
                         android:layout_width="100dp"
@@ -44,8 +44,7 @@
                         android:scaleType="fitCenter"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/play_disc_halo" />
+                        android:layout_gravity="center_horizontal" />
                     <TextView
                         android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
@@ -73,17 +72,19 @@
                             app:layout_constraintBottom_toTopOf="parent"
                             app:layout_constraintRight_toLeftOf="@+id/iv_play"
                             android:layout_marginEnd="@dimen/margin_bound"/>
+
                         <ImageView
                             android:id="@+id/iv_play"
                             android:layout_width="@dimen/height_width_iv_play_more"
                             android:layout_height="@dimen/height_width_iv_play_more"
-                            android:src="@mipmap/iv_play"
                             android:scaleType="fitXY"
+                            android:src="@mipmap/iv_play"
                             app:layout_constraintBottom_toBottomOf="@id/iv_cover"
                             app:layout_constraintBottom_toTopOf="parent"
                             app:layout_constraintEnd_toStartOf="parent"
-                            app:layout_constraintStart_toEndOf="parent"
-                            app:layout_constraintLeft_toRightOf="@+id/iv_previous"/>
+                            app:layout_constraintLeft_toRightOf="@+id/iv_previous"
+                            app:layout_constraintStart_toEndOf="parent" />
+
                         <ImageView
                             android:id="@+id/iv_next"
                             android:layout_width="@dimen/height_width_iv_play"
@@ -98,18 +99,17 @@
                 </android.support.constraint.ConstraintLayout>
 
             </FrameLayout>
-            <View
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_detail_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"/>
+                android:layout_weight="1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:orientation="vertical">
             <android.support.design.widget.TabLayout
                 android:id="@+id/tl_title"
                 android:layout_width="match_parent"
@@ -124,7 +124,7 @@
                 android:layout_height="match_parent"
                 android:visibility="gone"/>
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/list"
+                android:id="@+id/recyclerview_radio_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
