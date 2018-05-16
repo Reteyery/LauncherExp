@@ -85,12 +85,11 @@ public class MainActivity extends BaseActivity {
                 holder.mTextView.setText(object.getTitle());
                 Glide.with(holder.itemView.getContext()).load(object.getThumbs().getMediumThumb()).into(holder.mImageView);
                 holder.mLinearLayout.setOnClickListener((View v) -> {
-//                        Intent intent = new Intent(v.getContext(), DetailsActivity.class);
-//                        intent.putExtra(DetailsActivity.CHANNEL_ID, object.getId());
-//                        v.getContext().startActivity(intent);
-
-                    requestChannelDetails(channelId);
-                    requestChannelPrograms(channelId);
+                        Intent intent = new Intent(v.getContext(), DetailListActivity.class);
+                        intent.putExtra(DetailListActivity.CHANNEL_ID, object.getId());
+                        v.getContext().startActivity(intent);
+//                    requestChannelDetails(channelId);
+//                    requestChannelPrograms(channelId);
                 });
             }
         };
