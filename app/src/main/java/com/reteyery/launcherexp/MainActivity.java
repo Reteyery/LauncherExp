@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -16,7 +17,9 @@ import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fm.qingting.qtsdk.QTException;
 import fm.qingting.qtsdk.QTSDK;
+import fm.qingting.qtsdk.callbacks.QTCallback;
 import fm.qingting.qtsdk.entity.Category;
 import fm.qingting.qtsdk.entity.Channel;
 
@@ -28,6 +31,14 @@ public class MainActivity extends BaseActivity {
     ImageView ivPlay;
     @BindView(R.id.vp_content)
     ViewPager vpContent;
+    @BindView(R.id.iv_cover)
+    ImageView ivCover;
+    @BindView(R.id.iv_previous)
+    ImageView ivPrevious;
+    @BindView(R.id.iv_next)
+    ImageView ivNext;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     TabLayout mTabLayout;
     RecyclerView mRecyclerview;
@@ -64,13 +75,12 @@ public class MainActivity extends BaseActivity {
             public void bindData(SimpleHolder holder, Channel object) {
                 holder.mTextView.setText(object.getTitle());
                 Glide.with(holder.itemView.getContext()).load(object.getThumbs().getMediumThumb()).into(holder.mImageView);
-                holder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                holder.mLinearLayout.setOnClickListener((View v) -> {
 //                        Intent intent = new Intent(v.getContext(), DetailsActivity.class);
 //                        intent.putExtra(DetailsActivity.CHANNEL_ID, object.getId());
 //                        v.getContext().startActivity(intent);
-                    }
+
+                    requestChannelDetails(object.getId());
                 });
             }
         };
@@ -111,6 +121,20 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+    }
+
+    private void requestChannelDetails(int channelId) {
+        QTSDK.requestChannelOnDemand(channelId, new QTCallback<Channel>() {
+            @Override
+            public void done(Channel result, QTException e) {
+                if (e == null) {
+                    tvTitle.setText(result.getTitle());
+                    Glide.with(getBaseContext())
+                            .load(result.getThumbs().getMediumThumb())
+                            .into(ivCover);
+                }
             }
         });
     }

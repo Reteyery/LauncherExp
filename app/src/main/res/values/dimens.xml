@@ -1,8 +1,9 @@
 <resources>
     <dimen name="height_tab_layout">120dp</dimen>
     <dimen name="height_width_iv_play">40dp</dimen>
-    <dimen name="height_width_iv_play_more">50dp</dimen>
+    <dimen name="height_width_iv_play_more">60dp</dimen>
     <dimen name="height_title_layout">35dp</dimen>
+    <dimen name="height_title">30dp</dimen>
 
     <dimen name="margin_bound">10dp</dimen>
     <dimen name="margin_bound_2x">20dp</dimen>

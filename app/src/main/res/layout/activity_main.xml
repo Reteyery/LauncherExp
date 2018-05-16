@@ -29,52 +29,72 @@
                     <com.reteyery.launcherexp.widget.lrc.LrcView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:layout_constraintDimensionRatio="1:1"/>
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        android:visibility="gone"/>
                 </android.support.constraint.ConstraintLayout>
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
                         android:id="@+id/iv_cover"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:scaleType="fitCenter"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         android:layout_gravity="center_horizontal"
                         android:src="@mipmap/play_disc_halo" />
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/height_title"
+                        app:layout_constraintTop_toBottomOf="@id/iv_cover"
+                        app:layout_constraintLeft_toRightOf="parent"
+                        app:layout_constraintRight_toLeftOf="parent"
+                        tools:text="我是电台标题"
+                        android:layout_marginTop="@dimen/margin_bound"
+                        android:gravity="center_vertical"/>
 
-                    <ImageView
-                        android:id="@+id/iv_previous"
-                        android:layout_width="@dimen/height_width_iv_play"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/height_width_iv_play"
-                        android:src="@mipmap/iv_play_prev"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                        app:layout_constraintTop_toBottomOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/iv_play"
-                        android:layout_marginEnd="@dimen/margin_bound"/>
-                    <ImageView
-                        android:id="@+id/iv_play"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@mipmap/iv_play"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                        app:layout_constraintTop_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="parent"
-                        app:layout_constraintStart_toEndOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/iv_previous"/>
-                    <ImageView
-                        android:id="@+id/iv_next"
-                        android:layout_width="@dimen/height_width_iv_play"
-                        android:layout_height="@dimen/height_width_iv_play"
-                        android:src="@mipmap/iv_play_next"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                        app:layout_constraintTop_toBottomOf="parent"
-                        android:layout_marginStart="@dimen/margin_bound"
-                        app:layout_constraintLeft_toRightOf="@+id/iv_play"/>
+                        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <ImageView
+                            android:id="@+id/iv_previous"
+                            android:layout_width="@dimen/height_width_iv_play"
+                            android:layout_height="@dimen/height_width_iv_play"
+                            android:src="@mipmap/iv_play_prev"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_cover"
+                            app:layout_constraintBottom_toTopOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/iv_play"
+                            android:layout_marginEnd="@dimen/margin_bound"/>
+                        <ImageView
+                            android:id="@+id/iv_play"
+                            android:layout_width="@dimen/height_width_iv_play_more"
+                            android:layout_height="@dimen/height_width_iv_play_more"
+                            android:src="@mipmap/iv_play"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_cover"
+                            app:layout_constraintBottom_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/iv_previous"/>
+                        <ImageView
+                            android:id="@+id/iv_next"
+                            android:layout_width="@dimen/height_width_iv_play"
+                            android:layout_height="@dimen/height_width_iv_play"
+                            android:src="@mipmap/iv_play_next"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_cover"
+                            app:layout_constraintBottom_toTopOf="parent"
+                            android:layout_marginStart="@dimen/margin_bound"
+                            app:layout_constraintLeft_toRightOf="@+id/iv_play"/>
+                    </LinearLayout>
                 </android.support.constraint.ConstraintLayout>
 
             </FrameLayout>
