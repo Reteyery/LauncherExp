@@ -122,10 +122,4 @@ public class DetailListActivity extends BaseActivity implements View.OnClickList
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
