@@ -28,7 +28,23 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/margin_bound_0.5x">
 
+            <com.reteyery.launcherexp.widget.PlayerSeekBar
+                android:id="@+id/play_seek"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintBottom_toTopOf="@id/ll_play"
+                android:layout_marginBottom="@dimen/margin_bound"
+                android:layout_weight="22"
+                android:maxHeight="8dp"
+                android:minHeight="8dp"
+                android:progressDrawable="@drawable/play_seekbar"
+                android:secondaryProgress="0"
+                android:thumb="@mipmap/play_plybar_btn"
+                tools:layout_editor_absoluteY="3dp" />
             <LinearLayout
+                android:id="@+id/ll_play"
                 android:layout_width="200dp"
                 android:layout_height="@dimen/height_width_iv_play_more"
                 app:layout_constraintBottom_toBottomOf="parent"
