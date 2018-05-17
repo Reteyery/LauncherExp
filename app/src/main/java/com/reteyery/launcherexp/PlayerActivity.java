@@ -92,6 +92,15 @@ public class PlayerActivity extends BaseActivity implements QTPlayer.StateChange
         }
     }
 
+    /**
+     *  int NONE = -1;
+        int LOADING = 0;
+        int PLAYING = 1;
+        int PAUSED = 2;
+        int ERROR = 3;
+        int EOF = 4;
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -99,10 +108,18 @@ public class PlayerActivity extends BaseActivity implements QTPlayer.StateChange
                 playPre();
                 break;
             case R.id.btn_play:
-
+                switch (qtPlay.getState()){
+                    case -1:
+                        //无状态就从头开始播放
+                        qtPlay.prepare(editions.get(0));
+                        break;
+                    case 2:
+                        qtPlay.play();
+                        break;
+                }
                 break;
             case R.id.btn_pause:
-
+                qtPlay.pause();
                 break;
             case R.id.btn_next:
                 playNext();
