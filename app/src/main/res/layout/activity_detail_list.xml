@@ -43,6 +43,18 @@
                 android:secondaryProgress="0"
                 android:thumb="@mipmap/play_plybar_btn"
                 tools:layout_editor_absoluteY="3dp" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginStart="@dimen/margin_bound_2x"
+                android:layout_marginBottom="@dimen/margin_bound"
+                app:layout_constraintTop_toTopOf="@+id/play_seek"
+                app:layout_constraintBottom_toTopOf="@id/ll_play"
+                app:layout_constraintLeft_toRightOf="@+id/play_seek"
+                tools:text="标题" />
             <LinearLayout
                 android:id="@+id/ll_play"
                 android:layout_width="200dp"
@@ -75,15 +87,6 @@
                     android:src="@mipmap/icon_play_btn_next"/>
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:layout_marginEnd="@dimen/margin_bound_0.5x"
-            android:layout_marginStart="@dimen/margin_bound"
-            android:textSize="16sp"
-            tools:text="标题"
-            android:visibility="gone"/>
 
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
