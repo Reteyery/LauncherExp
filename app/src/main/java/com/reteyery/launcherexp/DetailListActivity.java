@@ -1,5 +1,6 @@
 package com.reteyery.launcherexp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +36,7 @@ public class DetailListActivity extends BaseActivity {
 
     SimpleAdapter listAdapter;
     int channelId;
-    public final static String CHANNEL_ID = "channel_id";
+    public final static String CHANNEL_ID = "CHANNEL_ID";
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -64,7 +65,9 @@ public class DetailListActivity extends BaseActivity {
                         url.setText("播放地址：" + result.getEditions().get(0).getUrl().get(0));
                         ArrayList<Edition> editions=new ArrayList<>();
                         editions.addAll(result.getEditions());
-//                        PlayerActivity.Companion.start(DetailsActivity.this,editions);
+                        Intent intent = new Intent(DetailListActivity.this, PlayerActivity.class);
+                        intent.putExtra(CHANNEL_ID, editions);
+                        DetailListActivity.this.startActivity(intent);
                     }else{
                         Toast.makeText(v.getContext(), e.toString(), Toast.LENGTH_SHORT).show();
                     }

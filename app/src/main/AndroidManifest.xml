@@ -34,6 +34,11 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoBar"
             android:screenOrientation="landscape"/>
+        <activity android:name=".PlayerActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoBar"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
