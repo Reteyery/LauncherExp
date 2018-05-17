@@ -19,7 +19,7 @@ import fm.qingting.qtsdk.player.QTPlayer;
 
 import static com.reteyery.launcherexp.DetailListActivity.CHANNEL_ID;
 
-public class PlayerActivity extends BaseActivity implements QTPlayer.StateChangeListener, View.OnClickListener {
+public class PlayerActivity extends BaseActivity implements QTPlayer.StateChangeListener, View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     @BindView(R.id.tv_state)
     TextView tvState;
     @BindView(R.id.tv_program_index)
@@ -41,6 +41,7 @@ public class PlayerActivity extends BaseActivity implements QTPlayer.StateChange
 
     ArrayList<Edition> editions=new ArrayList<>();
     boolean checkIndex = false;
+    boolean isSeeking = false;
     int currentIndex = 0;
     QTPlayer qtPlay;
 
@@ -66,21 +67,21 @@ public class PlayerActivity extends BaseActivity implements QTPlayer.StateChange
         int sizeProgram = editions.size();
         qtPlay = QTSDK.getPlayer();
         qtPlay.addListener(this);
-
+        seekbar.setOnSeekBarChangeListener(this);
         radioPlay(checkIndexStatus(sizeProgram));
     }
 
     private boolean checkIndexStatus(int sizeProgram){
         if(sizeProgram <= 0){
-            Toast.makeText(this, "播放列表为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.play_list_null, Toast.LENGTH_SHORT).show();
             return false;
         }else if (currentIndex > sizeProgram - 1){
             currentIndex = sizeProgram - 1;
-            Toast.makeText(this, "已经是最后一首", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.already_is_first, Toast.LENGTH_SHORT).show();
             return false;
         }else if (currentIndex < 0){
             currentIndex = 0;
-            Toast.makeText(this, "已经是第一首", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.already_is_last, Toast.LENGTH_SHORT).show();
             return false;
         }else {
             return true;
@@ -136,7 +137,7 @@ public class PlayerActivity extends BaseActivity implements QTPlayer.StateChange
         if (currentIndex >= 0)
             qtPlay.prepare(editions.get(currentIndex));
         else
-            Toast.makeText(this, "已经是第一首", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.already_is_first, Toast.LENGTH_SHORT).show();
     }
 
     void playNext(){
@@ -144,12 +145,30 @@ public class PlayerActivity extends BaseActivity implements QTPlayer.StateChange
         if (currentIndex < editions.size() - 1)
             qtPlay.prepare(editions.get(currentIndex));
         else
-            Toast.makeText(this, "已经是最后一首", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.already_is_last, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        isSeeking = true;
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        isSeeking = false;
+        qtPlay.seekTo(seekbar.getProgress());
     }
 
     @Override
     public void onPlayStateChange(int i) {
-
+        if (i == QTPlayer.PlayState.EOF) {
+            playNext();
+        }
     }
 
     @Override
