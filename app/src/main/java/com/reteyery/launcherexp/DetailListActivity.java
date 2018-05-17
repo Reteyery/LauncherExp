@@ -1,7 +1,9 @@
 package com.reteyery.launcherexp;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,17 +38,12 @@ public class DetailListActivity extends BaseActivity {
     public final static String CHANNEL_ID = "channel_id";
 
     @Override
-    public int getLayoutContentViewID() {
-        return R.layout.activity_detail_list;
+    protected View onCreateView(Bundle savedInstanceState) {
+        return View.inflate(this, R.layout.activity_detail_list, null);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        initData();
-    }
-
-    private void initData() {
+    protected void initData() {
         channelId = getIntent().getIntExtra(CHANNEL_ID, 0);
         if (channelId == 0) {
             return;
@@ -78,6 +75,11 @@ public class DetailListActivity extends BaseActivity {
         recyclerView.setAdapter(listAdapter);
         requestChannelDetails(channelId);
         requestChannelPrograms(channelId);
+    }
+
+    @Override
+    protected void initOperation() {
+
     }
 
     private void requestChannelDetails(int channelId) {

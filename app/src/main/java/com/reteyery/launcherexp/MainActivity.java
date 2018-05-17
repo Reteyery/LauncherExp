@@ -18,7 +18,6 @@ import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import fm.qingting.qtsdk.QTException;
 import fm.qingting.qtsdk.QTSDK;
 import fm.qingting.qtsdk.callbacks.QTCallback;
@@ -55,24 +54,12 @@ public class MainActivity extends BaseActivity {
     int channelId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+    protected View onCreateView(Bundle savedInstanceState) {
+        return View.inflate(this, R.layout.activity_main, null);
     }
 
     @Override
-    public int getLayoutContentViewID() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initData();
-    }
-
-    private void initData() {
-
+    protected void initData() {
         ivPlay.setOnClickListener(view -> {
             Intent intent = new Intent(this, RadioMainActivity.class);
             MainActivity.this.startActivity(intent);
@@ -85,9 +72,9 @@ public class MainActivity extends BaseActivity {
                 holder.mTextView.setText(object.getTitle());
                 Glide.with(holder.itemView.getContext()).load(object.getThumbs().getMediumThumb()).into(holder.mImageView);
                 holder.mLinearLayout.setOnClickListener((View v) -> {
-                        Intent intent = new Intent(v.getContext(), DetailListActivity.class);
-                        intent.putExtra(DetailListActivity.CHANNEL_ID, object.getId());
-                        v.getContext().startActivity(intent);
+                    Intent intent = new Intent(v.getContext(), DetailListActivity.class);
+                    intent.putExtra(DetailListActivity.CHANNEL_ID, object.getId());
+                    v.getContext().startActivity(intent);
 //                    requestChannelDetails(channelId);
 //                    requestChannelPrograms(channelId);
                 });
@@ -154,6 +141,12 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+    }
+
+
+    @Override
+    protected void initOperation() {
+
     }
 
     private void requestChannelPrograms(int channelId) {

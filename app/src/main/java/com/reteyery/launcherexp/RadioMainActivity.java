@@ -1,9 +1,11 @@
 package com.reteyery.launcherexp;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -42,17 +44,17 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
     List<BaseFragment> fragmentList = new ArrayList<>();
 
     @Override
-    public int getLayoutContentViewID() {
-        return R.layout.activity_radio_main;
+    protected View onCreateView(Bundle savedInstanceState) {
+        return  View.inflate(this, R.layout.activity_radio_main, null);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        initData();
+    protected void initOperation() {
+
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         requestCategory();
         viewPager.addOnPageChangeListener(this);
     }
