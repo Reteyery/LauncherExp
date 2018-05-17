@@ -24,6 +24,9 @@ import fm.qingting.qtsdk.entity.ChannelProgram;
 import fm.qingting.qtsdk.entity.Edition;
 import fm.qingting.qtsdk.entity.QTListEntity;
 
+/**
+ * 栏目详情列表
+ */
 public class DetailListActivity extends BaseActivity {
     @BindView(R.id.cover)
     ImageView imageView;

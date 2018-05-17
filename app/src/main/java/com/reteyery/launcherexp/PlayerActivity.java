@@ -19,6 +19,9 @@ import fm.qingting.qtsdk.player.QTPlayer;
 
 import static com.reteyery.launcherexp.DetailListActivity.CHANNEL_ID;
 
+/**
+ * 播放器功能
+ */
 public class PlayerActivity extends BaseActivity implements QTPlayer.StateChangeListener, View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     @BindView(R.id.tv_state)
     TextView tvState;

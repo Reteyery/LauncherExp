@@ -26,6 +26,9 @@ import fm.qingting.qtsdk.entity.QTListEntity;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+/**
+ * 测试使用
+ */
 public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     @BindView(R.id.iv_cover)
     ImageView ivCover;
