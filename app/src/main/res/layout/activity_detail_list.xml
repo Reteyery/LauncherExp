@@ -1,45 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="@dimen/height_radio"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/margin_bound_0.5x"
+        android:paddingBottom="@dimen/margin_bound_0.5x"
+        >
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/cover"
+            android:layout_width="@dimen/height_width_iv_play_more"
+            android:layout_height="@dimen/height_width_iv_play_more"
+            android:layout_marginStart="@dimen/margin_bound"
+            android:layout_marginTop="@dimen/margin_bound_0.5x"
+            android:layout_marginBottom="@dimen/margin_bound_0.5x"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop" />
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="@dimen/margin_bound_0.5x"
-            android:paddingBottom="@dimen/margin_bound_0.5x"
-            >
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/margin_bound_0.5x">
 
-            <ImageView
-                android:id="@+id/cover"
-                android:layout_width="@dimen/height_width_iv_play_more"
+            <LinearLayout
+                android:layout_width="200dp"
                 android:layout_height="@dimen/height_width_iv_play_more"
-                android:layout_marginStart="@dimen/margin_bound"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerCrop" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_bound"
-                android:layout_marginEnd="@dimen/margin_bound_0.5x"
-                tools:text="标题"
-                android:textSize="16sp" />
+                <ImageView
+                    android:layout_width="@dimen/height_width_iv_play"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/margin_bound"
+                    android:layout_marginStart="@dimen/margin_bound"
+                    android:src="@mipmap/icon_upbill" />
+                <ImageView
+                    android:layout_width="@dimen/height_width_iv_play_more"
+                    android:layout_height="@dimen/height_width_iv_play_more"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/icon_play_btn"
+                    android:layout_marginStart="@dimen/margin_bound"
+                    android:layout_marginEnd="@dimen/margin_bound"
+                    android:padding="@dimen/margin_bound_0.5x"/>
+                <ImageView
+                    android:layout_width="@dimen/height_width_iv_play"
+                    android:layout_height="@dimen/height_width_iv_play"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/icon_play_btn_next"/>
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginEnd="@dimen/margin_bound_0.5x"
+            android:layout_marginStart="@dimen/margin_bound"
+            android:textSize="16sp"
+            tools:text="标题"
+            android:visibility="gone"/>
 
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+</LinearLayout>

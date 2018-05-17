@@ -29,7 +29,6 @@ public class DetailListActivity extends BaseActivity {
     ImageView imageView;
     @BindView(R.id.title)
     TextView title;
-
     @BindView(R.id.list)
     RecyclerView recyclerView;
 
