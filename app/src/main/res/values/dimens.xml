@@ -2,6 +2,7 @@
     <dimen name="height_tab_layout">120dp</dimen>
     <dimen name="height_width_iv_play">40dp</dimen>
     <dimen name="height_width_iv_play_more">50dp</dimen>
+    <dimen name="height_width_iv_play_large">70dp</dimen>
     <dimen name="height_title_layout">35dp</dimen>
     <dimen name="height_title">30dp</dimen>
 

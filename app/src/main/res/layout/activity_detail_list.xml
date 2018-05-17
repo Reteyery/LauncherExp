@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/cover"
-            android:layout_width="@dimen/height_width_iv_play_more"
-            android:layout_height="@dimen/height_width_iv_play_more"
+            android:layout_width="@dimen/height_width_iv_play_large"
+            android:layout_height="@dimen/height_width_iv_play_large"
             android:layout_marginStart="@dimen/margin_bound"
             android:layout_marginTop="@dimen/margin_bound_0.5x"
             android:layout_marginBottom="@dimen/margin_bound_0.5x"
