@@ -5,6 +5,8 @@
     <dimen name="height_title_layout">35dp</dimen>
     <dimen name="height_title">30dp</dimen>
 
+    <dimen name="height_item">50dp</dimen>
+
     <dimen name="height_width_image_middle">100dp</dimen>
 
     <dimen name="margin_bound_0.2x">2dp</dimen>
