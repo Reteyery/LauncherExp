@@ -1,32 +1,55 @@
 package com.reteyery.launcherexp.buss.adapter;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.reteyery.launcherexp.R;
-import com.reteyery.launcherexp.base.BaseRvAdapter;
-import com.reteyery.launcherexp.base.interfaces.LauncherOnItemClickListener;
-import com.reteyery.launcherexp.base.interfaces.LauncherOnItemLongClickListener;
-import com.reteyery.launcherexp.buss.holder.RadioListHolder;
 
-import fm.qingting.qtsdk.entity.Channel;
+import java.util.List;
 
-public class RadioListAdapter extends BaseRvAdapter<Channel, RadioListHolder>{
+public abstract class RadioListAdapter<T> extends RecyclerView.Adapter {
+
+    public List<T> items;
+
+    @NonNull
     @Override
-    public RadioListHolder createViewHolder(View view, Context context, LauncherOnItemClickListener itemClickListener, LauncherOnItemLongClickListener itemLongClickListener) {
-        return new RadioListHolder(view, context, itemClickListener, itemLongClickListener);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_radio_list, parent, false);
+        return new SimpleHolder(view);
     }
 
     @Override
-    public void onBindViewData(RadioListHolder holder, int position, Channel entity) {
-        holder.mTextView.setText(entity.getTitle());
-        Glide.with(holder.itemView.getContext()).load(entity.getThumbs().getMediumThumb()).into(holder.mImageView);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ((SimpleHolder) holder).bind(items.get(position));
     }
 
+    public abstract void bindData(SimpleHolder holder, T object);
+
     @Override
-    public int getLayout(ViewGroup parent, int viewType) {
-        return R.layout.item_view;
+    public int getItemCount() {
+        if (items != null) {
+            return items.size();
+        }
+        return 0;
+    }
+
+    public class SimpleHolder extends RecyclerView.ViewHolder {
+        public TextView tvTitle;
+        public ConstraintLayout mConstraintLayout;
+
+        public SimpleHolder(View itemView) {
+            super(itemView);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            mConstraintLayout = itemView.findViewById(R.id.cl_layout);
+        }
+
+        public void bind(T object) {
+            bindData(this, object);
+        }
     }
 }

@@ -10,6 +10,7 @@
     <dimen name="height_width_image_middle">100dp</dimen>
 
     <dimen name="margin_bound_0.2x">2dp</dimen>
+    <dimen name="margin_bound_0.5x">5dp</dimen>
     <dimen name="margin_bound">10dp</dimen>
     <dimen name="margin_bound_2x">20dp</dimen>
     <dimen name="margin_bound_3x">30dp</dimen>

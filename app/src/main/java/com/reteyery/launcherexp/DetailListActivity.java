@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.reteyery.launcherexp.base.BaseActivity;
-import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
+import com.reteyery.launcherexp.buss.adapter.RadioListAdapter;
 
 import java.util.ArrayList;
 
@@ -29,12 +29,11 @@ public class DetailListActivity extends BaseActivity {
     ImageView imageView;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.url)
-    TextView url;
+
     @BindView(R.id.list)
     RecyclerView recyclerView;
 
-    SimpleAdapter listAdapter;
+    RadioListAdapter listAdapter;
     int channelId;
     public final static String CHANNEL_ID = "CHANNEL_ID";
 
@@ -49,27 +48,20 @@ public class DetailListActivity extends BaseActivity {
         if (channelId == 0) {
             return;
         }
-        title = findViewById(R.id.title);
-        url = findViewById(R.id.url);
-        imageView = findViewById(R.id.cover);
-        recyclerView = findViewById(R.id.list);
-        listAdapter = new SimpleAdapter<ChannelProgram>() {
+        listAdapter = new RadioListAdapter<ChannelProgram>() {
+
             @Override
             public void bindData(SimpleHolder holder, ChannelProgram object) {
-                holder.mTextView.setText(object.getTitle());
-                if (object.getThumbs() != null) {
-                    Glide.with(holder.itemView.getContext()).load(object.getThumbs().getMediumThumb()).into(holder.mImageView);
-                }
-                holder.mLinearLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, object.getId(), (result, e) -> {
+                holder.tvTitle.setText(object.getTitle());
+                holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, object.getId(), (result, e) -> {
                     if (e == null) {
-                        url.setText("播放地址：" + result.getEditions().get(0).getUrl().get(0));
                         ArrayList<Edition> editions=new ArrayList<>();
                         editions.addAll(result.getEditions());
                         Intent intent = new Intent(DetailListActivity.this, PlayerActivity.class);
                         intent.putExtra(CHANNEL_ID, editions);
                         DetailListActivity.this.startActivity(intent);
                     }else{
-                        Toast.makeText(v.getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailListActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }));
             }

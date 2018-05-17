@@ -29,14 +29,14 @@ public class RadioListFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        adapter = new RadioListAdapter();
+//        adapter = new RadioListAdapter();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerview.setLayoutManager(linearLayoutManager);
 
         recyclerview.setAdapter(adapter);
         if (null != channelList && channelList.size() > 0){
-            adapter.setDatas(channelList);
+//            adapter.setDatas(channelList);
             adapter.notifyDataSetChanged();
         }
     }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,33 +13,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:paddingTop="@dimen/margin_bound_0.5x"
+            android:paddingBottom="@dimen/margin_bound_0.5x"
             >
 
             <ImageView
                 android:id="@+id/cover"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_marginLeft="16dp"
+                android:layout_width="@dimen/height_width_iv_play_more"
+                android:layout_height="@dimen/height_width_iv_play_more"
+                android:layout_marginStart="@dimen/margin_bound"
+                android:layout_gravity="center_vertical"
                 android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:text="标题"
-                />
-
-            <TextView
-                android:id="@+id/url"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:text="播放地址"
-                />
+                android:layout_marginStart="@dimen/margin_bound"
+                android:layout_marginEnd="@dimen/margin_bound_0.5x"
+                tools:text="标题"
+                android:textSize="16sp" />
 
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
