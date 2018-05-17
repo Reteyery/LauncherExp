@@ -32,6 +32,7 @@ repositories {
     maven {
         url uri('http://maven.qingting.fm/')
     }
+    maven { url "https://jitpack.io" }
     mavenCentral()
     google()
 }
@@ -59,4 +60,5 @@ dependencies {
 
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }
