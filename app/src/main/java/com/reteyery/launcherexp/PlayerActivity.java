@@ -173,12 +173,14 @@ public class PlayerActivity extends BaseActivity implements QTPlayer.StateChange
 
     @Override
     public void onPlayProgressChange(int i) {
-
+        if (!isSeeking){
+            seekbar.setProgress(i);
+        }
     }
 
     @Override
     public void onPlayDurationChange(int i) {
-
+        seekbar.setMax(i);
     }
 
 }
