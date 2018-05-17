@@ -63,6 +63,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_previous"
                     android:layout_width="@dimen/height_width_iv_play"
                     android:layout_height="38dp"
                     android:layout_gravity="center_vertical"
@@ -71,6 +72,7 @@
                     android:layout_marginStart="@dimen/margin_bound"
                     android:src="@mipmap/icon_upbill" />
                 <ImageView
+                    android:id="@+id/iv_play"
                     android:layout_width="@dimen/height_width_iv_play_more"
                     android:layout_height="@dimen/height_width_iv_play_more"
                     android:layout_gravity="center_vertical"
@@ -80,6 +82,7 @@
                     android:layout_marginEnd="@dimen/margin_bound"
                     android:padding="@dimen/margin_bound_0.5x"/>
                 <ImageView
+                    android:id="@+id/iv_next"
                     android:layout_width="@dimen/height_width_iv_play"
                     android:layout_height="@dimen/height_width_iv_play"
                     android:scaleType="fitCenter"

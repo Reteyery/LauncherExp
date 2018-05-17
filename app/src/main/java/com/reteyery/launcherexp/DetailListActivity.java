@@ -12,10 +12,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.buss.adapter.RadioListAdapter;
+import com.reteyery.launcherexp.widget.PlayerSeekBar;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import fm.qingting.qtsdk.QTException;
 import fm.qingting.qtsdk.QTSDK;
 import fm.qingting.qtsdk.callbacks.QTCallback;
@@ -27,13 +29,21 @@ import fm.qingting.qtsdk.entity.QTListEntity;
 /**
  * 栏目详情列表
  */
-public class DetailListActivity extends BaseActivity {
+public class DetailListActivity extends BaseActivity implements View.OnClickListener{
     @BindView(R.id.cover)
     ImageView imageView;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.list)
     RecyclerView recyclerView;
+    @BindView(R.id.play_seek)
+    PlayerSeekBar playSeek;
+    @BindView(R.id.iv_previous)
+    ImageView ivPrevious;
+    @BindView(R.id.iv_play)
+    ImageView ivPlay;
+    @BindView(R.id.iv_next)
+    ImageView ivNext;
 
     RadioListAdapter listAdapter;
     int channelId;
@@ -57,12 +67,12 @@ public class DetailListActivity extends BaseActivity {
                 holder.tvTitle.setText(object.getTitle());
                 holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, object.getId(), (result, e) -> {
                     if (e == null) {
-                        ArrayList<Edition> editions=new ArrayList<>();
+                        ArrayList<Edition> editions = new ArrayList<>();
                         editions.addAll(result.getEditions());
                         Intent intent = new Intent(DetailListActivity.this, PlayerActivity.class);
                         intent.putExtra(CHANNEL_ID, editions);
                         DetailListActivity.this.startActivity(intent);
-                    }else{
+                    } else {
                         Toast.makeText(DetailListActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }));
@@ -75,8 +85,15 @@ public class DetailListActivity extends BaseActivity {
     }
 
     @Override
-    protected void initOperation() {
+    public void onClick(View v) {
 
+    }
+
+    @Override
+    protected void initOperation() {
+        ivPlay.setOnClickListener(this);
+        ivPrevious.setOnClickListener(this);
+        ivNext.setOnClickListener(this);
     }
 
     private void requestChannelDetails(int channelId) {
@@ -103,5 +120,12 @@ public class DetailListActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
