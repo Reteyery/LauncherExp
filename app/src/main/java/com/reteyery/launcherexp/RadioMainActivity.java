@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.base.BaseFragment;
+import com.reteyery.launcherexp.buss.entity.TabEvent;
 import com.reteyery.launcherexp.buss.fragment.RadioListFragment;
+import com.reteyery.launcherexp.util.RxBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,7 @@ import fm.qingting.qtsdk.entity.Channel;
 import fm.qingting.qtsdk.entity.QTListEntity;
 
 import static android.widget.Toast.LENGTH_SHORT;
+import static com.reteyery.launcherexp.util.Constants.TAB_EVENT;
 
 /**
  * 测试使用
@@ -52,11 +55,6 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
         return  View.inflate(this, R.layout.activity_radio_main, null);
-    }
-
-    @Override
-    protected void initOperation() {
-
     }
 
     @Override
@@ -112,6 +110,11 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
     }
 
     @Override
+    protected void initOperation() {
+
+    }
+
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
@@ -142,14 +145,13 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
 
         @Override
         public BaseFragment getItem(int position) {
-
             return mFragmentList.get(position);
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-
+//            RxBus.getInstance().post(new TabEvent(TAB_EVENT, position, ""));
             return titleList.get(position);
         }
 

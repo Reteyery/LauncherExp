@@ -14,6 +14,8 @@ import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.RadioMainActivity;
 import com.reteyery.launcherexp.base.BaseFragment;
 import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
+import com.reteyery.launcherexp.buss.entity.TabEvent;
+import com.reteyery.launcherexp.util.RxBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +28,10 @@ import fm.qingting.qtsdk.QTSDK;
 import fm.qingting.qtsdk.callbacks.QTCallback;
 import fm.qingting.qtsdk.entity.Category;
 import fm.qingting.qtsdk.entity.Channel;
-import fm.qingting.qtsdk.entity.QTListEntity;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import rx.Subscription;
+import rx.functions.Action1;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -45,11 +50,11 @@ public class RadioListFragment extends BaseFragment {
         return R.layout.recyclerview_normal_list;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void initData() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         listAdapter = new SimpleAdapter<Channel>() {
             @Override
             public void bindData(SimpleHolder holder, Channel object) {
@@ -69,23 +74,26 @@ public class RadioListFragment extends BaseFragment {
         recyclerview.setAdapter(listAdapter);
         categoryMap = ((RadioMainActivity) Objects.requireNonNull(getActivity())).getCategoryMap();
         requestList(categoryMap.get(0).getId());
+
+        RxBus.getInstance().register(TabEvent.class).subscribe(new Consumer<TabEvent>() {
+            @Override
+            public void accept(TabEvent tabEvent) throws Exception {
+//                RadioListFragment.this.requestList(categoryMap.get(tabEvent.getId()).getId());
+            }
+        });
     }
 
     private void requestList(int tabId) {
-        QTSDK.requestChannelOnDemandList(tabId,null,1,new QTCallback<QTListEntity<Channel>>() {
-            @Override
-            public void done(QTListEntity<Channel> result, QTException e) {
-                if (e == null) {
-                    if (result != null) {
-                        channelList = result.getData();
-                        listAdapter.items = channelList;
-                        listAdapter.notifyDataSetChanged();
-                    }
-                }else{
-                    Toast.makeText(getContext(), e.getMessage(), LENGTH_SHORT).show();
+        QTSDK.requestChannelOnDemandList(tabId,null,1, (result, e) -> {
+            if (e == null) {
+                if (result != null) {
+                    channelList = result.getData();
+                    listAdapter.items = channelList;
+                    listAdapter.notifyDataSetChanged();
                 }
+            }else{
+                Toast.makeText(getContext(), e.getMessage(), LENGTH_SHORT).show();
             }
-
         });
     }
 
