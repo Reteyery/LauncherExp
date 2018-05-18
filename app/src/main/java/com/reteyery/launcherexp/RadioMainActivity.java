@@ -1,6 +1,7 @@
 package com.reteyery.launcherexp;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -30,14 +31,7 @@ import static android.widget.Toast.LENGTH_SHORT;
  * 测试使用
  */
 public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-    @BindView(R.id.iv_cover)
-    ImageView ivCover;
-    @BindView(R.id.iv_previous)
-    ImageView ivPrevious;
-    @BindView(R.id.iv_play)
-    ImageView ivPlay;
-    @BindView(R.id.iv_next)
-    ImageView ivNext;
+
     @BindView(R.id.tl_title)
     TabLayout tabLayout;
     @BindView(R.id.vp_content)
@@ -45,6 +39,8 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
 
     int tabSize;
     List<BaseFragment> fragmentList = new ArrayList<>();
+    List<String> titleList = new ArrayList<>();
+    RadioPagerAdapter pagerAdapter;
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -60,6 +56,9 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
     protected void initData() {
         requestCategory();
         viewPager.addOnPageChangeListener(this);
+        pagerAdapter = new RadioPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void requestCategory() {
@@ -67,15 +66,16 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
             if (e == null) {
                 if (result != null && result.size() > 0) {
                     tabSize = result.size();
-                    viewPager.setAdapter(new RadioPagerAdapter(getSupportFragmentManager()));
-                    tabLayout.setupWithViewPager(viewPager);
                     for (Category category : result) {
                         TabLayout.Tab tab = tabLayout.newTab();
                         tab.setText(category.getName());
                         tab.setTag(category);
+                        titleList.add(category.getName());
                         tabLayout.addTab(tab);
                         fragmentList.add(new RadioListFragment());
                     }
+                    pagerAdapter.setFragmentList(fragmentList);
+                    pagerAdapter.notifyDataSetChanged();
                     requestList(result.get(0).getId());
                 }
             } else {
@@ -118,19 +118,29 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
     }
 
     class RadioPagerAdapter extends FragmentPagerAdapter{
-
+        List<BaseFragment> mFragmentList;
         RadioPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public BaseFragment getItem(int position) {
-            return fragmentList.get(position);
+            return mFragmentList.get(position);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titleList.get(position);
         }
 
         @Override
         public int getCount() {
-            return fragmentList.size();
+            return null == fragmentList ? 0 : fragmentList.size();
+        }
+
+        public void setFragmentList(List<BaseFragment> mFragmentList) {
+            this.mFragmentList = mFragmentList;
         }
     }
 }

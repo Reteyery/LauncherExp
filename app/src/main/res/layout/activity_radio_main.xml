@@ -9,102 +9,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:background="@color/bg_black">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                tools:ignore="NestedWeights">
-
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.reteyery.launcherexp.widget.lrc.LrcView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintDimensionRatio="1:1"/>
-                </android.support.constraint.ConstraintLayout>
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:id="@+id/iv_cover"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:scaleType="fitCenter"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/play_disc_halo" />
-
-                    <ImageView
-                        android:id="@+id/iv_previous"
-                        android:layout_width="@dimen/height_width_iv_play"
-                        android:layout_height="@dimen/height_width_iv_play"
-                        android:src="@mipmap/iv_play_prev"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                        app:layout_constraintTop_toBottomOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/iv_play"
-                        android:layout_marginEnd="@dimen/margin_bound"/>
-                    <ImageView
-                        android:id="@+id/iv_play"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@mipmap/iv_play"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                        app:layout_constraintTop_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="parent"
-                        app:layout_constraintStart_toEndOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/iv_previous"/>
-                    <ImageView
-                        android:id="@+id/iv_next"
-                        android:layout_width="@dimen/height_width_iv_play"
-                        android:layout_height="@dimen/height_width_iv_play"
-                        android:src="@mipmap/iv_play_next"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                        app:layout_constraintTop_toBottomOf="parent"
-                        android:layout_marginStart="@dimen/margin_bound"
-                        app:layout_constraintLeft_toRightOf="@+id/iv_play"/>
-                </android.support.constraint.ConstraintLayout>
-
-            </FrameLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:background="@color/white">
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tl_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_title_layout"
-                app:tabMode="scrollable"
-                app:tabIndicatorColor="@color/font_red"
-                app:tabSelectedTextColor="@color/font_red"
-                app:tabGravity="center"/>
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
-        </LinearLayout>
+        android:orientation="vertical"
+        android:background="@color/white">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_title_layout"
+            app:tabMode="scrollable"
+            app:tabIndicatorColor="@color/font_red"
+            app:tabSelectedTextColor="@color/font_red"
+            app:tabGravity="center"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </FrameLayout>
