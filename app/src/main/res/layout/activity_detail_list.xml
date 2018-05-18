@@ -62,30 +62,45 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:orientation="horizontal">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/iv_previous"
                     android:layout_width="@dimen/height_width_iv_play"
                     android:layout_height="38dp"
                     android:layout_gravity="center_vertical"
                     android:padding="@dimen/margin_bound"
+                    android:background="@null"
                     android:scaleType="fitCenter"
                     android:layout_marginStart="@dimen/margin_bound"
                     android:src="@mipmap/icon_upbill" />
-                <ImageView
+                <ImageButton
                     android:id="@+id/iv_play"
                     android:layout_width="@dimen/height_width_iv_play_more"
                     android:layout_height="@dimen/height_width_iv_play_more"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/icon_play_btn"
                     android:scaleType="fitCenter"
+                    android:background="@null"
+                    android:src="@mipmap/icon_play_btn"
                     android:layout_marginStart="@dimen/margin_bound"
                     android:layout_marginEnd="@dimen/margin_bound"
                     android:padding="@dimen/margin_bound_0.5x"/>
-                <ImageView
+                <ImageButton
+                    android:id="@+id/iv_pause"
+                    android:layout_width="@dimen/height_width_iv_play_more"
+                    android:layout_height="@dimen/height_width_iv_play_more"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitCenter"
+                    android:background="@null"
+                    android:src="@mipmap/icon_pause_btn"
+                    android:layout_marginStart="@dimen/margin_bound"
+                    android:layout_marginEnd="@dimen/margin_bound"
+                    android:padding="@dimen/margin_bound_0.5x"
+                    android:visibility="gone"/>
+                <ImageButton
                     android:id="@+id/iv_next"
                     android:layout_width="@dimen/height_width_iv_play"
                     android:layout_height="@dimen/height_width_iv_play"
                     android:scaleType="fitCenter"
+                    android:background="@null"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/icon_play_btn_next"/>
             </LinearLayout>
