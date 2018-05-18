@@ -23,25 +23,27 @@ import java.util.Map;
 import java.util.Objects;
 
 import butterknife.BindView;
-import fm.qingting.qtsdk.QTException;
 import fm.qingting.qtsdk.QTSDK;
-import fm.qingting.qtsdk.callbacks.QTCallback;
 import fm.qingting.qtsdk.entity.Category;
 import fm.qingting.qtsdk.entity.Channel;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import rx.Subscription;
-import rx.functions.Action1;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+@SuppressLint("ValidFragment")
 public class RadioListFragment extends BaseFragment {
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
 
     List<Channel> channelList;
     SimpleAdapter listAdapter;
-    int channelId;
+    int channelId, tabId = 0;
+
+    @SuppressLint("ValidFragment")
+    public RadioListFragment(int tabId) {
+        this.tabId = tabId;
+    }
+
     @SuppressLint("UseSparseArrays")
     Map<Integer, Category> categoryMap = new HashMap<>();
 
@@ -72,8 +74,12 @@ public class RadioListFragment extends BaseFragment {
         };
         recyclerview.setLayoutManager(linearLayoutManager);
         recyclerview.setAdapter(listAdapter);
-        categoryMap = ((RadioMainActivity) Objects.requireNonNull(getActivity())).getCategoryMap();
-        requestList(categoryMap.get(0).getId());
+        if (tabId != 0){
+            requestList(tabId);
+        }else {
+            categoryMap = ((RadioMainActivity) Objects.requireNonNull(getActivity())).getCategoryMap();
+            requestList(categoryMap.get(0).getId());
+        }
 
         RxBus.getInstance().register(TabEvent.class).subscribe(new Consumer<TabEvent>() {
             @Override

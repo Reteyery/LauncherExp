@@ -36,7 +36,7 @@ import static com.reteyery.launcherexp.util.Constants.TAB_EVENT;
 /**
  * 测试使用
  */
-public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, TabLayout.OnTabSelectedListener {
 
     @BindView(R.id.tl_title)
     TabLayout tabLayout;
@@ -64,6 +64,7 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
         pagerAdapter = new RadioPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(this);
     }
 
     private void requestCategory() {
@@ -77,7 +78,7 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
                         tab.setTag(category);
                         titleList.add(category.getName());
                         tabLayout.addTab(tab);
-                        fragmentList.add(new RadioListFragment());
+                        fragmentList.add(new RadioListFragment(category.getId()));
                     }
 
                     for (int i = 0; i < result.size(); i++){
@@ -111,6 +112,24 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
 
     @Override
     protected void initOperation() {
+
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        Category category = (Category) tab.getTag();
+        if (category != null) {
+            requestList(category.getId());
+        }
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
 
     }
 

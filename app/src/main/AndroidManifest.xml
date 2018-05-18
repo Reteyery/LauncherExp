@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".MainActivity"
+            android:name=".RadioMainActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoBar"
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RadioMainActivity"
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoBar"
