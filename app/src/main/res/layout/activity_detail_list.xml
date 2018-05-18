@@ -12,6 +12,7 @@
         android:orientation="horizontal"
         android:paddingTop="@dimen/margin_bound_0.5x"
         android:paddingBottom="@dimen/margin_bound_0.5x"
+        android:background="#45000000"
         >
 
         <ImageView
