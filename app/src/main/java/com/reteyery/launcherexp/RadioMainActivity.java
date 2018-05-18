@@ -1,5 +1,6 @@
 package com.reteyery.launcherexp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -15,7 +16,9 @@ import com.reteyery.launcherexp.base.BaseFragment;
 import com.reteyery.launcherexp.buss.fragment.RadioListFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import fm.qingting.qtsdk.QTException;
@@ -41,6 +44,10 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
     List<BaseFragment> fragmentList = new ArrayList<>();
     List<String> titleList = new ArrayList<>();
     RadioPagerAdapter pagerAdapter;
+    List<Channel> channelList = new ArrayList<>();
+
+    @SuppressLint("UseSparseArrays")
+    Map<Integer, Category> categoryMap = new HashMap<>();
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -74,6 +81,10 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
                         tabLayout.addTab(tab);
                         fragmentList.add(new RadioListFragment());
                     }
+
+                    for (int i = 0; i < result.size(); i++){
+                        categoryMap.put(i, result.get(i));
+                    }
                     pagerAdapter.setFragmentList(fragmentList);
                     pagerAdapter.notifyDataSetChanged();
                     requestList(result.get(0).getId());
@@ -90,9 +101,7 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
             public void done(QTListEntity<Channel> result, QTException e) {
                 if (e == null) {
                     if (result != null) {
-                        RadioListFragment radioListFragment = (RadioListFragment) fragmentList.get(0);
-
-                        radioListFragment.setChannelList(result.getData());
+                        channelList = result.getData();
                     }
                 }else{
                     Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
@@ -117,6 +126,14 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
 
     }
 
+    public Map<Integer, Category> getCategoryMap() {
+        return categoryMap;
+    }
+
+    public void setCategoryMap(Map<Integer, Category> categoryMap) {
+        this.categoryMap = categoryMap;
+    }
+
     class RadioPagerAdapter extends FragmentPagerAdapter{
         List<BaseFragment> mFragmentList;
         RadioPagerAdapter(FragmentManager fm) {
@@ -125,12 +142,14 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
 
         @Override
         public BaseFragment getItem(int position) {
+
             return mFragmentList.get(position);
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
+
             return titleList.get(position);
         }
 
@@ -143,4 +162,5 @@ public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageC
             this.mFragmentList = mFragmentList;
         }
     }
+
 }
