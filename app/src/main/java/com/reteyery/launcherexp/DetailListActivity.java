@@ -197,17 +197,19 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
      * 默认进来的index是0，无论从中间哪一首播放，点击上一首直接就会显示是第一首， bug
      */
     void playPre() {
-        --currentIndex;
-        if (currentIndex >= 0)
+        if (currentIndex > 0){
+            --currentIndex;
             qtPlay.prepare(editions.get(currentIndex));
+        }
         else
             Toast.makeText(this, R.string.already_is_first, Toast.LENGTH_SHORT).show();
     }
 
     void playNext() {
-        ++currentIndex;
-        if (currentIndex < editions.size() - 1)
+        if (currentIndex < editions.size() - 1){
+            ++currentIndex;
             qtPlay.prepare(editions.get(currentIndex));
+        }
         else
             Toast.makeText(this, R.string.already_is_last, Toast.LENGTH_SHORT).show();
     }
