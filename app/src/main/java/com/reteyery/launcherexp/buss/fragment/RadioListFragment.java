@@ -14,8 +14,6 @@ import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.RadioMainActivity;
 import com.reteyery.launcherexp.base.BaseFragment;
 import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
-import com.reteyery.launcherexp.buss.entity.TabEvent;
-import com.reteyery.launcherexp.util.RxBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +24,6 @@ import butterknife.BindView;
 import fm.qingting.qtsdk.QTSDK;
 import fm.qingting.qtsdk.entity.Category;
 import fm.qingting.qtsdk.entity.Channel;
-import io.reactivex.functions.Consumer;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -67,8 +64,6 @@ public class RadioListFragment extends BaseFragment {
                     Intent intent = new Intent(v.getContext(), DetailListActivity.class);
                     intent.putExtra(DetailListActivity.CHANNEL_ID, object.getId());
                     v.getContext().startActivity(intent);
-//                    requestChannelDetails(channelId);
-//                    requestChannelPrograms(channelId);
                 });
             }
         };
@@ -81,12 +76,6 @@ public class RadioListFragment extends BaseFragment {
             requestList(categoryMap.get(0).getId());
         }
 
-        RxBus.getInstance().register(TabEvent.class).subscribe(new Consumer<TabEvent>() {
-            @Override
-            public void accept(TabEvent tabEvent) throws Exception {
-//                RadioListFragment.this.requestList(categoryMap.get(tabEvent.getId()).getId());
-            }
-        });
     }
 
     private void requestList(int tabId) {
