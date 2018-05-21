@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.buss.adapter.RadioListAdapter;
 import com.reteyery.launcherexp.widget.PlayerSeekBar;
@@ -18,7 +19,6 @@ import com.reteyery.launcherexp.widget.PlayerSeekBar;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import fm.qingting.qtsdk.QTSDK;
 import fm.qingting.qtsdk.entity.ChannelProgram;
 import fm.qingting.qtsdk.entity.Edition;
@@ -50,7 +50,7 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
     int channelId;
     public final static String CHANNEL_ID = "CHANNEL_ID";
     ArrayList<Edition> editions = new ArrayList<>();
-    boolean checkIndex = false;
+
     boolean isSeeking = false;
     int currentIndex = 0;
     QTPlayer qtPlay;
@@ -72,15 +72,14 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
         listAdapter = new RadioListAdapter<ChannelProgram>() {
 
             @Override
-            public void bindData(SimpleHolder holder, ChannelProgram object) {
-                holder.tvTitle.setText(object.getTitle());
-                holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, object.getId(), (result, e) -> {
+            public void bindData(SimpleHolder holder, ChannelProgram channelProgram) {
+
+                holder.tvTitle.setText(channelProgram.getTitle());
+                holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, channelProgram.getId(), (result, e) -> {
                     if (e == null) {
-                        editions = new ArrayList<>(result.getEditions());
+                       editions = new ArrayList<>(result.getEditions());
+                        //播放当前选中的电台节目
                         initQTPlay();
-//                        Intent intent = new Intent(DetailListActivity.this, PlayerActivity.class);
-//                        intent.putExtra(CHANNEL_ID, editions);
-//                        DetailListActivity.this.startActivity(intent);
                     } else {
                         Toast.makeText(DetailListActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
@@ -208,6 +207,7 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
     void playNext() {
         if (currentIndex < editions.size() - 1){
             ++currentIndex;
+            Logger.i(currentIndex + "");
             qtPlay.prepare(editions.get(currentIndex));
         }
         else
