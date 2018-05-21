@@ -27,7 +27,7 @@ public class BaseRvHolder extends RecyclerView.ViewHolder implements View.OnClic
         initView();
     }
 
-    public void initView(){}
+    private void initView(){}
 
     @Override
     public void onClick(View v) {
