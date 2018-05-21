@@ -1,6 +1,5 @@
 package com.reteyery.launcherexp.buss.adapter;
 
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ public abstract class SimpleAdapter<T> extends RecyclerView.Adapter {
 
     public List<T> items;
 
-    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
@@ -51,14 +49,14 @@ public abstract class SimpleAdapter<T> extends RecyclerView.Adapter {
         public ConstraintLayout mLinearLayout;
         public TextView mTextView;
 
-        SimpleHolder(View itemView) {
+        public SimpleHolder(View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.cover);
             mTextView = itemView.findViewById(R.id.title);
             mLinearLayout = itemView.findViewById(R.id.container);
         }
 
-        void bind(T object) {
+        public void bind(T object) {
             bindData(this, object);
         }
     }
