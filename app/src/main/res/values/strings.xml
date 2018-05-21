@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">LauncherExp</string>
     <string name="play_list_null">播放列表为空</string>
-    <string name="already_is_first">已经是最后一首</string>
-    <string name="already_is_last">已经是第一首</string>
+    <string name="already_is_first">已经是第一首</string>
+    <string name="already_is_last">已经是最后一首</string>
     <color name="white">#ffffffff</color>
 </resources>
