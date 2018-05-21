@@ -34,7 +34,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 import static com.reteyery.launcherexp.util.Constants.TAB_EVENT;
 
 /**
- * 测试使用
+ * 主界面
  */
 public class RadioMainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, TabLayout.OnTabSelectedListener {
 
