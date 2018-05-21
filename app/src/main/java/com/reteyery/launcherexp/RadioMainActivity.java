@@ -8,14 +8,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.base.BaseFragment;
-import com.reteyery.launcherexp.buss.entity.TabEvent;
 import com.reteyery.launcherexp.buss.fragment.RadioListFragment;
-import com.reteyery.launcherexp.util.RxBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +28,6 @@ import fm.qingting.qtsdk.entity.Channel;
 import fm.qingting.qtsdk.entity.QTListEntity;
 
 import static android.widget.Toast.LENGTH_SHORT;
-import static com.reteyery.launcherexp.util.Constants.TAB_EVENT;
 
 /**
  * 主界面
