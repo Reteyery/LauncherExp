@@ -1,5 +1,6 @@
 package com.reteyery.launcherexp;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -75,6 +76,8 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
             public void bindData(SimpleHolder holder, ChannelProgram channelProgram) {
 
                 holder.tvTitle.setText(channelProgram.getTitle());
+                AnimationDrawable animationDrawable = (AnimationDrawable) holder.ivPlay.getDrawable();
+                animationDrawable.start();
                 holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, channelProgram.getId(), (result, e) -> {
                     if (e == null) {
                        editions = new ArrayList<>(result.getEditions());

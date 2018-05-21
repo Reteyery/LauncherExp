@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.reteyery.launcherexp.R;
@@ -40,11 +41,13 @@ public abstract class RadioListAdapter<T> extends RecyclerView.Adapter {
 
     public class SimpleHolder extends RecyclerView.ViewHolder {
         public TextView tvTitle;
+        public ImageView ivPlay;
         public ConstraintLayout mConstraintLayout;
 
         public SimpleHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_title);
+            ivPlay = itemView.findViewById(R.id.iv_play);
             mConstraintLayout = itemView.findViewById(R.id.cl_layout);
         }
 
