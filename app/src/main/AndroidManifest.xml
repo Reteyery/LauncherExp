@@ -24,6 +24,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".test.TestActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoBar"
+            android:screenOrientation="landscape"/>
+        <activity
             android:name=".RadioMainActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
             android:launchMode="singleTask"

@@ -62,4 +62,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
 }

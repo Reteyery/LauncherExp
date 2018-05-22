@@ -1,40 +1,26 @@
 package com.reteyery.launcherexp;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.base.BaseFragment;
-import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
 import com.reteyery.launcherexp.buss.fragment.RadioListFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
-import fm.qingting.qtsdk.QTException;
 import fm.qingting.qtsdk.QTSDK;
-import fm.qingting.qtsdk.callbacks.QTCallback;
 import fm.qingting.qtsdk.entity.Category;
 import fm.qingting.qtsdk.entity.Channel;
-import fm.qingting.qtsdk.entity.ChannelProgram;
-import fm.qingting.qtsdk.entity.Edition;
-import fm.qingting.qtsdk.entity.QTListEntity;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -50,9 +36,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     List<String> titleList = new ArrayList<>();
     RadioPagerAdapter pagerAdapter;
     List<Channel> channelList = new ArrayList<>();
-
-    @SuppressLint("UseSparseArrays")
-    Map<Integer, Category> categoryMap = new HashMap<>();
+    SparseArray<Category> categoryArray = new SparseArray<>();
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -84,7 +68,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     }
 
                     for (int i = 0; i < result.size(); i++){
-                        categoryMap.put(i, result.get(i));
+                        categoryArray.append(i, result.get(i));
                     }
                     pagerAdapter.setFragmentList(fragmentList);
                     pagerAdapter.notifyDataSetChanged();
@@ -97,18 +81,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     private void requestList(int tabId) {
-        QTSDK.requestChannelOnDemandList(tabId,null,1,new QTCallback<QTListEntity<Channel>>() {
-            @Override
-            public void done(QTListEntity<Channel> result, QTException e) {
-                if (e == null) {
-                    if (result != null) {
-                        channelList = result.getData();
-                    }
-                }else{
-                    Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
+        QTSDK.requestChannelOnDemandList(tabId,null,1, (result, e) -> {
+            if (e == null) {
+                if (result != null) {
+                    channelList = result.getData();
                 }
+            }else{
+                Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
             }
-
         });
     }
 
@@ -149,15 +129,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public void onPageScrollStateChanged(int state) {
 
     }
-
-    public Map<Integer, Category> getCategoryMap() {
-        return categoryMap;
+    public SparseArray<Category> getCategoryArray() {
+        return categoryArray;
     }
-
-    public void setCategoryMap(Map<Integer, Category> categoryMap) {
-        this.categoryMap = categoryMap;
-    }
-
     class RadioPagerAdapter extends FragmentPagerAdapter {
         List<BaseFragment> mFragmentList;
         RadioPagerAdapter(FragmentManager fm) {
@@ -172,7 +146,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-//            RxBus.getInstance().post(new TabEvent(TAB_EVENT, position, ""));
             return titleList.get(position);
         }
 
@@ -181,7 +154,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             return null == fragmentList ? 0 : fragmentList.size();
         }
 
-        public void setFragmentList(List<BaseFragment> mFragmentList) {
+        void setFragmentList(List<BaseFragment> mFragmentList) {
             this.mFragmentList = mFragmentList;
         }
     }

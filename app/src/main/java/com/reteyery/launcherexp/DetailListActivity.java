@@ -1,5 +1,6 @@
 package com.reteyery.launcherexp;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import com.reteyery.launcherexp.buss.adapter.RadioListAdapter;
 import com.reteyery.launcherexp.widget.PlayerSeekBar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import fm.qingting.qtsdk.QTSDK;
@@ -48,13 +51,14 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
 
 
     RadioListAdapter listAdapter;
-    int channelId;
+    int channelId, currentIndex = 0, oldPosId = 0;
     public final static String CHANNEL_ID = "CHANNEL_ID";
     ArrayList<Edition> editions = new ArrayList<>();
 
     boolean isSeeking = false;
-    int currentIndex = 0;
     QTPlayer qtPlay;
+    @SuppressLint("UseSparseArrays")
+    Map<Integer, Integer> clickMap = new HashMap<>();
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -74,13 +78,33 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
 
             @Override
             public void bindData(SimpleHolder holder, ChannelProgram channelProgram) {
-
                 holder.tvTitle.setText(channelProgram.getTitle());
                 AnimationDrawable animationDrawable = (AnimationDrawable) holder.ivPlay.getDrawable();
                 animationDrawable.start();
+
                 holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, channelProgram.getId(), (result, e) -> {
                     if (e == null) {
-                       editions = new ArrayList<>(result.getEditions());
+                        for (Map.Entry<Integer, Integer> entry : clickMap.entrySet()){
+                            if (oldPosId != 0 && !entry.getKey().equals(oldPosId)){
+                                holder.ivPlay.setVisibility(View.VISIBLE);
+                                clickMap.put(oldPosId, oldPosId);
+                                clickMap.put(channelProgram.getId(), channelProgram.getId() + 1);
+                                oldPosId = channelProgram.getId();
+                            }else {
+                                holder.ivPlay.setVisibility(View.VISIBLE);
+                                clickMap.put(channelProgram.getId(), channelProgram.getId() + 1);
+                                oldPosId = channelProgram.getId();
+                            }
+                        }
+
+                        for (Map.Entry<Integer, Integer> entry: clickMap.entrySet()){
+                            if (!entry.getKey().equals(entry.getValue()))
+                                holder.ivPlay.setVisibility(View.VISIBLE);
+                            else
+                                holder.ivPlay.setVisibility(View.INVISIBLE);
+                        }
+
+                        editions = new ArrayList<>(result.getEditions());
                         //播放当前选中的电台节目
                         initQTPlay();
                     } else {
@@ -165,6 +189,11 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
             if (e == null) {
                 listAdapter.items = result.getData();
                 listAdapter.notifyDataSetChanged();
+
+                for(int i = 0; i < result.getData().size(); i++){
+                    int id = result.getData().get(i).getId();
+                    clickMap.put(id, id);
+                }
             }
         });
     }

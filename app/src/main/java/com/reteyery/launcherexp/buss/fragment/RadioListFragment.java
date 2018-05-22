@@ -5,19 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.reteyery.launcherexp.DetailListActivity;
+import com.reteyery.launcherexp.MainActivity;
 import com.reteyery.launcherexp.R;
-import com.reteyery.launcherexp.RadioMainActivity;
 import com.reteyery.launcherexp.base.BaseFragment;
 import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -34,22 +33,19 @@ public class RadioListFragment extends BaseFragment {
 
     List<Channel> channelList;
     SimpleAdapter listAdapter;
-    int channelId, tabId = 0;
+    int channelId, tabId;
 
     @SuppressLint("ValidFragment")
     public RadioListFragment(int tabId) {
         this.tabId = tabId;
     }
-
-    @SuppressLint("UseSparseArrays")
-    Map<Integer, Category> categoryMap = new HashMap<>();
+    SparseArray<Category> categoryArray = new SparseArray<>();
 
     @Override
     protected int createRootView(Bundle savedInstanceState) {
         return R.layout.recyclerview_normal_list;
     }
 
-    @SuppressLint("CheckResult")
     @Override
     public void initData() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -72,8 +68,8 @@ public class RadioListFragment extends BaseFragment {
         if (tabId != 0){
             requestList(tabId);
         }else {
-            categoryMap = ((RadioMainActivity) Objects.requireNonNull(getActivity())).getCategoryMap();
-            requestList(categoryMap.get(0).getId());
+            categoryArray = ((MainActivity) Objects.requireNonNull(getActivity())).getCategoryArray();
+            requestList(categoryArray.get(0).getId());
         }
 
     }
