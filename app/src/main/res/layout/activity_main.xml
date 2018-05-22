@@ -9,127 +9,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:orientation="vertical">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                tools:ignore="NestedWeights">
-
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.reteyery.launcherexp.widget.lrc.LrcView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintDimensionRatio="1:1"
-                        android:visibility="gone"/>
-                </android.support.constraint.ConstraintLayout>
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/margin_bound_0.2x">
-                    <ImageView
-                        android:id="@+id/iv_cover"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:scaleType="fitCenter"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_gravity="center_horizontal" />
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height_title"
-                        app:layout_constraintTop_toBottomOf="@id/iv_cover"
-                        app:layout_constraintLeft_toRightOf="parent"
-                        app:layout_constraintRight_toLeftOf="parent"
-                        tools:text="我是电台标题"
-                        android:layout_marginTop="@dimen/margin_bound"
-                        android:gravity="center_vertical"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height_width_iv_play"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <ImageView
-                            android:id="@+id/iv_previous"
-                            android:layout_width="@dimen/height_width_iv_play"
-                            android:layout_height="@dimen/height_width_iv_play"
-                            android:src="@mipmap/iv_play_prev"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                            app:layout_constraintBottom_toTopOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/iv_play"
-                            android:layout_marginEnd="@dimen/margin_bound"/>
-
-                        <ImageView
-                            android:id="@+id/iv_play"
-                            android:layout_width="@dimen/height_width_iv_play_more"
-                            android:layout_height="@dimen/height_width_iv_play_more"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/iv_play"
-                            app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                            app:layout_constraintBottom_toTopOf="parent"
-                            app:layout_constraintEnd_toStartOf="parent"
-                            app:layout_constraintLeft_toRightOf="@+id/iv_previous"
-                            app:layout_constraintStart_toEndOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/iv_next"
-                            android:layout_width="@dimen/height_width_iv_play"
-                            android:layout_height="@dimen/height_width_iv_play"
-                            android:src="@mipmap/iv_play_next"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="@id/iv_cover"
-                            app:layout_constraintBottom_toTopOf="parent"
-                            android:layout_marginStart="@dimen/margin_bound"
-                            app:layout_constraintLeft_toRightOf="@+id/iv_play"/>
-                    </LinearLayout>
-                </android.support.constraint.ConstraintLayout>
-
-            </FrameLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview_detail_list"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical">
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tl_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_title_layout"
-                app:tabMode="scrollable"
-                app:tabIndicatorColor="@color/font_red"
-                app:tabSelectedTextColor="@color/font_red"
-                app:tabGravity="center"/>
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview_radio_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </LinearLayout>
+        android:orientation="vertical"
+        android:background="@color/white">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_title_layout"
+            app:tabMode="scrollable"
+            app:tabIndicatorColor="@color/font_red"
+            app:tabSelectedTextColor="@color/font_red"
+            app:tabGravity="center"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </FrameLayout>
