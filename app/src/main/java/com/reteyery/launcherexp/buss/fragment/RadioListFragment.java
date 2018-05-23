@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -18,19 +16,17 @@ import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.base.BaseFragment;
 import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.header.FalsifyHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import fm.qingting.qtsdk.QTSDK;
 import fm.qingting.qtsdk.entity.Category;
 import fm.qingting.qtsdk.entity.Channel;
@@ -38,7 +34,7 @@ import fm.qingting.qtsdk.entity.Channel;
 import static android.widget.Toast.LENGTH_SHORT;
 
 @SuppressLint("ValidFragment")
-public class RadioListFragment extends BaseFragment {
+public class RadioListFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener{
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     @BindView(R.id.srl_refreshLayout)
@@ -47,7 +43,6 @@ public class RadioListFragment extends BaseFragment {
     List<Channel> channelList;
     SimpleAdapter listAdapter;
     int channelId, tabId;
-    Unbinder unbinder;
 
     @SuppressLint("ValidFragment")
     public RadioListFragment(int tabId) {
@@ -88,6 +83,16 @@ public class RadioListFragment extends BaseFragment {
             categoryArray = ((MainActivity) Objects.requireNonNull(getActivity())).getCategoryArray();
             requestList(categoryArray.get(0).getId());
         }
+
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshLayout) {
+
+    }
+
+    @Override
+    public void onLoadMore(RefreshLayout refreshLayout) {
 
     }
 

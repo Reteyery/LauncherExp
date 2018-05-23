@@ -82,8 +82,6 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
             public void bindData(SimpleHolder holder, ChannelProgram channelProgram) {
                 holder.tvTitle.setText(channelProgram.getTitle());
                 AnimationDrawable animationDrawable = (AnimationDrawable) holder.ivPlay.getDrawable();
-                animationDrawable.start();
-
                 holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, channelProgram.getId(), (result, e) -> {
                     if (e == null) {
                         //动画播放显示逻辑， treeMap保存k,v,点击后k!=v,如果点击的是新一首，旧k的数据设置为k==v
@@ -110,12 +108,13 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
                         Toast.makeText(DetailListActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }));
-                for (Map.Entry<Integer, Integer> entry: clickMap.entrySet()){
-                    if (!entry.getKey().equals(entry.getValue())){
-                        holder.ivPlay.setVisibility(View.VISIBLE);
-                    }else{
-                        holder.ivPlay.setVisibility(View.INVISIBLE);
-                    }
+                //控制动画互斥显示
+                if (clickMap.get(holder.getAdapterPosition()).equals(holder.getAdapterPosition())){
+                    holder.ivPlay.setVisibility(View.INVISIBLE);
+                    animationDrawable.stop();
+                }else {
+                    animationDrawable.start();
+                    holder.ivPlay.setVisibility(View.VISIBLE);
                 }
             }
         };
