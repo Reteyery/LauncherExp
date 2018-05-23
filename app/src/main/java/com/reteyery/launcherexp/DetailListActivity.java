@@ -19,8 +19,8 @@ import com.reteyery.launcherexp.buss.adapter.RadioListAdapter;
 import com.reteyery.launcherexp.widget.PlayerSeekBar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import butterknife.BindView;
 import fm.qingting.qtsdk.QTSDK;
@@ -51,14 +51,16 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
 
 
     RadioListAdapter listAdapter;
-    int channelId, currentIndex = 0, oldPosId = 0;
+    int channelId, currentIndex = 0;
     public final static String CHANNEL_ID = "CHANNEL_ID";
     ArrayList<Edition> editions = new ArrayList<>();
 
     boolean isSeeking = false;
     QTPlayer qtPlay;
+
+    int oldPosId = -1;
     @SuppressLint("UseSparseArrays")
-    Map<Integer, Integer> clickMap = new HashMap<>();
+    TreeMap<Integer, Integer> clickMap = new TreeMap<>();
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -84,26 +86,23 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
 
                 holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, channelProgram.getId(), (result, e) -> {
                     if (e == null) {
-                        for (Map.Entry<Integer, Integer> entry : clickMap.entrySet()){
-                            if (oldPosId != 0 && !entry.getKey().equals(oldPosId)){
-                                holder.ivPlay.setVisibility(View.VISIBLE);
-                                clickMap.put(oldPosId, oldPosId);
-                                clickMap.put(channelProgram.getId(), channelProgram.getId() + 1);
-                                oldPosId = channelProgram.getId();
-                            }else {
-                                holder.ivPlay.setVisibility(View.VISIBLE);
-                                clickMap.put(channelProgram.getId(), channelProgram.getId() + 1);
-                                oldPosId = channelProgram.getId();
+                        //动画播放显示逻辑， treeMap保存k,v,点击后k!=v,如果点击的是新一首，旧k的数据设置为k==v
+                        for (Map.Entry<Integer, Integer> entry: clickMap.entrySet()){
+                            if (!entry.getKey().equals(entry.getValue())){
+                                oldPosId = entry.getKey();
                             }
                         }
-
-                        for (Map.Entry<Integer, Integer> entry: clickMap.entrySet()){
-                            if (!entry.getKey().equals(entry.getValue()))
-                                holder.ivPlay.setVisibility(View.VISIBLE);
-                            else
-                                holder.ivPlay.setVisibility(View.INVISIBLE);
+                        if(oldPosId != -1){
+                            if (oldPosId != holder.getAdapterPosition()){
+                                clickMap.put(oldPosId, oldPosId);
+                                clickMap.put(holder.getAdapterPosition(), holder.getAdapterPosition() + 100);
+                                oldPosId = holder.getAdapterPosition();
+                            }
+                        }else {
+                            clickMap.put(holder.getAdapterPosition(), holder.getAdapterPosition() + 100);
+                            oldPosId = holder.getAdapterPosition();
                         }
-
+                        listAdapter.notifyDataSetChanged();
                         editions = new ArrayList<>(result.getEditions());
                         //播放当前选中的电台节目
                         initQTPlay();
@@ -111,6 +110,13 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
                         Toast.makeText(DetailListActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }));
+                for (Map.Entry<Integer, Integer> entry: clickMap.entrySet()){
+                    if (!entry.getKey().equals(entry.getValue())){
+                        holder.ivPlay.setVisibility(View.VISIBLE);
+                    }else{
+                        holder.ivPlay.setVisibility(View.INVISIBLE);
+                    }
+                }
             }
         };
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
@@ -191,8 +197,7 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
                 listAdapter.notifyDataSetChanged();
 
                 for(int i = 0; i < result.getData().size(); i++){
-                    int id = result.getData().get(i).getId();
-                    clickMap.put(id, id);
+                    clickMap.put(i, i);
                 }
             }
         });
