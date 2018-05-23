@@ -37,6 +37,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     RadioPagerAdapter pagerAdapter;
     List<Channel> channelList = new ArrayList<>();
     SparseArray<Category> categoryArray = new SparseArray<>();
+    int pageIndex = 1;
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     }
                     pagerAdapter.setFragmentList(fragmentList);
                     pagerAdapter.notifyDataSetChanged();
-                    requestList(result.get(0).getId());
+                    requestList(result.get(0).getId(), 1);
                 }
             } else {
                 Toast.makeText(getBaseContext(), e.getMessage(), LENGTH_SHORT).show();
@@ -80,8 +81,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         });
     }
 
-    private void requestList(int tabId) {
-        QTSDK.requestChannelOnDemandList(tabId,null,1, (result, e) -> {
+    /***
+     * 请求数据列表
+     * @param categoryId 分类id，可为空， 第二个参数为主播id，可为空"",
+     * @param pageIndex 分页从第一页开始，每页30条
+     */
+    private void requestList(int categoryId, int pageIndex) {
+        QTSDK.requestChannelOnDemandList(categoryId, "", pageIndex, (result, e) -> {
             if (e == null) {
                 if (result != null) {
                     channelList = result.getData();
@@ -101,7 +107,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public void onTabSelected(TabLayout.Tab tab) {
         Category category = (Category) tab.getTag();
         if (category != null) {
-            requestList(category.getId());
+            requestList(category.getId(), pageIndex);
         }
     }
 

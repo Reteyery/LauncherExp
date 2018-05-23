@@ -15,6 +15,7 @@ import com.reteyery.launcherexp.MainActivity;
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.base.BaseFragment;
 import com.reteyery.launcherexp.buss.adapter.SimpleAdapter;
+import com.reteyery.launcherexp.util.Constants;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
@@ -43,6 +44,7 @@ public class RadioListFragment extends BaseFragment implements OnRefreshListener
     List<Channel> channelList;
     SimpleAdapter listAdapter;
     int channelId, tabId;
+    int pageIndex = 1;
 
     @SuppressLint("ValidFragment")
     public RadioListFragment(int tabId) {
@@ -60,6 +62,8 @@ public class RadioListFragment extends BaseFragment implements OnRefreshListener
     public void initData() {
         refreshLayout.setRefreshHeader(new ClassicsHeader(Objects.requireNonNull(getContext())));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listAdapter = new SimpleAdapter<Channel>() {
@@ -78,34 +82,41 @@ public class RadioListFragment extends BaseFragment implements OnRefreshListener
         recyclerview.setLayoutManager(linearLayoutManager);
         recyclerview.setAdapter(listAdapter);
         if (tabId != 0) {
-            requestList(tabId);
+            requestList(tabId, pageIndex, Constants.STATUS_REFRESH);
         } else {
             categoryArray = ((MainActivity) Objects.requireNonNull(getActivity())).getCategoryArray();
-            requestList(categoryArray.get(0).getId());
+            requestList(categoryArray.get(0).getId(), pageIndex, Constants.STATUS_REFRESH);
         }
 
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshLayout) {
-
+        pageIndex = 1;
+        requestList(tabId, pageIndex, Constants.STATUS_REFRESH);
     }
 
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {
-
+        pageIndex ++;
+        requestList(tabId, pageIndex, Constants.STATUS_LOAD);
     }
 
-    private void requestList(int tabId) {
-        QTSDK.requestChannelOnDemandList(tabId, null, 1, (result, e) -> {
-            if (e == null) {
-                if (result != null) {
+    private void requestList(int categoryId, int pageIndex, int status) {
+        QTSDK.requestChannelOnDemandList(categoryId, null, pageIndex, (result, e) -> {
+            if (e == null && result != null) {
+                if (status == Constants.STATUS_REFRESH) {
+                    refreshLayout.finishRefresh();
                     channelList = result.getData();
                     listAdapter.items = channelList;
                     listAdapter.notifyDataSetChanged();
+                }else {
+                    refreshLayout.finishLoadMore();
+                    listAdapter.items.addAll(result.getData());
+                    listAdapter.notifyDataSetChanged();
                 }
             } else {
-                Toast.makeText(getContext(), e.getMessage(), LENGTH_SHORT).show();
+                Toast.makeText(getContext(), e != null ? e.getMessage() : null, LENGTH_SHORT).show();
             }
         });
     }
