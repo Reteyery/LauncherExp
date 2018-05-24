@@ -84,7 +84,7 @@ public class DetailListActivity extends BaseActivity implements QTPlayer.StateCh
                 AnimationDrawable animationDrawable = (AnimationDrawable) holder.ivPlay.getDrawable();
                 holder.mConstraintLayout.setOnClickListener(v -> QTSDK.requestProgramUrl(channelId, channelProgram.getId(), (result, e) -> {
                     if (e == null) {
-                        //动画播放显示逻辑， treeMap保存k,v,点击后k!=v,如果点击的是新一首，旧k的数据设置为k==v
+                        //动画播放显示逻辑， treeMap保存k,v,初始 k=v,点击后k!=v,如果点击的是新一首，旧k的数据设置为k==v
                         for (Map.Entry<Integer, Integer> entry: clickMap.entrySet()){
                             if (!entry.getKey().equals(entry.getValue())){
                                 oldPosId = entry.getKey();
