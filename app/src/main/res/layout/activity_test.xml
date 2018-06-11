@@ -21,6 +21,18 @@
             android:textColor="@color/white"
             android:gravity="center"/>
         <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_bound_4x"
+            android:layout_marginStart="@dimen/margin_bound_2x"
+            android:layout_marginEnd="@dimen/margin_bound_2x"
+            android:layout_marginTop="@dimen/margin_bound_0.5x"
+            android:layout_marginBottom="@dimen/margin_bound_0.5x"
+            android:background="@color/colorPrimary"
+            android:text="@string/test_search"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+        <TextView
             android:id="@+id/tv_radio"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_bound_4x"
@@ -28,10 +40,9 @@
             android:layout_marginEnd="@dimen/margin_bound_2x"
             android:layout_marginTop="@dimen/margin_bound_0.5x"
             android:layout_marginBottom="@dimen/margin_bound_0.5x"
-            android:layout_margin="@dimen/margin_bound_2x"
             android:background="@color/colorPrimary"
-            android:gravity="center"
+            android:text="@string/radio"
             android:textColor="@color/white"
-            android:text="@string/radio"/>
+            android:gravity="center"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

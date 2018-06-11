@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MediaSearchActivity"
+        <activity android:name=".test.activity.MovieListActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoBar"
             android:screenOrientation="landscape"/>
-        <activity android:name=".test.activity.MovieListActivity"
+        <activity android:name=".test.activity.SearchMovieActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoBar"

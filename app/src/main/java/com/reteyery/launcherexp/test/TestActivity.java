@@ -10,6 +10,7 @@ import com.reteyery.launcherexp.MainActivity;
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.test.activity.MovieListActivity;
+import com.reteyery.launcherexp.test.activity.SearchMovieActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +21,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     TextView tvMovie;
     @BindView(R.id.tv_radio)
     TextView tvRadio;
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
     @BindView(R.id.scrollView)
     NestedScrollView scrollView;
 
@@ -32,6 +35,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     protected void initOperation() {
         tvMovie.setOnClickListener(this);
         tvRadio.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
     }
 
     @Override
@@ -42,9 +46,13 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_movie:
                 intent = new Intent(this, MovieListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_search:
+                intent = new Intent(this, SearchMovieActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_radio:

@@ -15,6 +15,7 @@
     <dimen name="margin_bound_0.5x">5dp</dimen>
     <dimen name="margin_bound">10dp</dimen>
     <dimen name="margin_bound_2x">20dp</dimen>
+    <dimen name="margin_bound_2.5x">25dp</dimen>
     <dimen name="margin_bound_3x">30dp</dimen>
     <dimen name="margin_bound_4x">40dp</dimen>
     <dimen name="margin_bound_5x">50dp</dimen>
