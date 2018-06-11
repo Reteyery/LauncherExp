@@ -1,0 +1,56 @@
+package com.reteyery.launcherexp.test;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
+import android.view.View;
+import android.widget.TextView;
+
+import com.reteyery.launcherexp.MainActivity;
+import com.reteyery.launcherexp.R;
+import com.reteyery.launcherexp.base.BaseActivity;
+import com.reteyery.launcherexp.test.activity.MovieListActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class TestActivity extends BaseActivity implements View.OnClickListener {
+
+    @BindView(R.id.tv_movie)
+    TextView tvMovie;
+    @BindView(R.id.tv_radio)
+    TextView tvRadio;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
+
+    @Override
+    protected View onCreateView(Bundle savedInstanceState) {
+        return View.inflate(this, R.layout.activity_test, null);
+    }
+
+    @Override
+    protected void initOperation() {
+        tvMovie.setOnClickListener(this);
+        tvRadio.setOnClickListener(this);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()){
+            case R.id.tv_movie:
+                intent = new Intent(this, MovieListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_radio:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+}

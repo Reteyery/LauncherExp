@@ -9,4 +9,8 @@
     <!-- 背景色 -->
     <!-- 纯黑色 --> <color name="bg_black">#95000000</color>
     <!-- 背景灰 --> <color name="bg_gray">#77eeeeee</color>
+    <!-- 背景灰 --> <color name="bg_main">#2c3341</color>
+
+    <color name="greenyellow">#ADFF2F</color>
+    <color name="light_grey">#666666</color>
 </resources>

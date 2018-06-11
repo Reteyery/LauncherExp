@@ -1,5 +1,7 @@
 package com.reteyery.launcherexp;
 
+import android.annotation.SuppressLint;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -7,7 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.reteyery.launcherexp.base.BaseActivity;
@@ -44,8 +48,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         return  View.inflate(this, R.layout.activity_radio_main, null);
     }
 
+    @SuppressLint("RtlHardcoded")
     @Override
     protected void initData() {
+//        initPopView();
         requestCategory();
         viewPager.addOnPageChangeListener(this);
         pagerAdapter = new RadioPagerAdapter(getSupportFragmentManager());
@@ -101,6 +107,27 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void initOperation() {
 
+    }
+
+    private void initPopView() {
+        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        View view = View.inflate(this, R.layout.activity_detail_list, null);
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        // 设置Window Type
+        params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        // 设置悬浮框不可触摸
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        // 悬浮窗不可触摸，不接受任何事件,同时不影响后面的事件响应
+        params.format = PixelFormat.RGBA_8888;
+        // 设置悬浮框的宽高
+        params.width = 800;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.gravity = Gravity.LEFT;
+        params.x = 200;
+        params.y = 0;
+        assert wm != null;
+        wm.addView(view, params);
     }
 
     @Override
