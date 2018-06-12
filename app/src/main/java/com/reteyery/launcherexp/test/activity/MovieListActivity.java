@@ -46,14 +46,17 @@ public class MovieListActivity extends FragmentActivity implements MovieRecycler
 
     @Override
     public void loadMore() {
-        Toast.makeText(this, "I am Bottom", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "I am Bottom", Toast.LENGTH_SHORT).show();
         Random random = new Random();
         int type;
         for (int i = 0; i < 30; i ++){
             type = random.nextInt(5) + 1;
             modelList.add(new DataModel(type, "item****" + type));
         }
-        adapter.notifyDataSetChanged();
+        recyclerView.post(() -> {
+            // Notify adapter with appropriate notify methods
+            adapter.notifyItemRangeInserted(modelList.size(), modelList.size() - 1);
+        });
     }
 
     private void initData() {

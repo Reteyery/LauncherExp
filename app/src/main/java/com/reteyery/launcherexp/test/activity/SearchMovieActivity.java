@@ -26,6 +26,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 影视搜索
+ */
 public class SearchMovieActivity extends BaseActivity implements View.OnClickListener{
     @BindView(R.id.iv_search)
     ImageView ivSearch;
@@ -47,6 +50,8 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
     ViewPager viewPager;
     @BindView(R.id.ll_search_result)
     LinearLayout llSearchResult;
+
+    PopupWindow popupWindow;
 
     List<String> searchList = new ArrayList<>();
 
@@ -94,13 +99,14 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
         recyclerView.setAdapter(adapter);
         adapter.setRecommendList(searchList);
         adapter.notifyDataSetChanged();
-        PopupWindow window=new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, 450, false);
-        window.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.setOutsideTouchable(true);
-        window.setTouchable(true);
-        window.showAsDropDown(ivSearch);
+
+        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, 450, false);
+        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.showAsDropDown(ivSearch);
     }
 
     private class SearchRecommendListHolder extends RecyclerView.ViewHolder{
