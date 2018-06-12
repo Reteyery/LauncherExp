@@ -28,6 +28,8 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:text="@string/search_hint"
+            android:maxLines="1"
+            android:singleLine="true"
             android:layout_marginStart="@dimen/margin_bound"/>
     </LinearLayout>
     <Button

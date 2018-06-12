@@ -64,4 +64,7 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     implementation 'me.wangyuwei:LoadingiVew:1.0.5'
+    implementation 'com.android.support:support-compat:27.1.1'
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
 }
