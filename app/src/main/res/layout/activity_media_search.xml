@@ -29,6 +29,7 @@
             android:background="@null"
             android:text="@string/search_hint"
             android:maxLines="1"
+            style="@style/editTextStyle"
             android:singleLine="true"
             android:layout_marginStart="@dimen/margin_bound"/>
     </LinearLayout>
