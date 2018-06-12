@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.test.adapter.MovieListAdapter;
@@ -37,7 +36,11 @@ public class MovieListActivity extends FragmentActivity implements MovieRecycler
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return modelList.get(position).getType();
+                if (position == 0){
+                    return 5;
+                }else {
+                    return modelList.get(position - 1).getType();
+                }
             }
         });
 
@@ -46,12 +49,11 @@ public class MovieListActivity extends FragmentActivity implements MovieRecycler
 
     @Override
     public void loadMore() {
-//        Toast.makeText(this, "I am Bottom", Toast.LENGTH_SHORT).show();
         Random random = new Random();
         int type;
         for (int i = 0; i < 30; i ++){
             type = random.nextInt(5) + 1;
-            modelList.add(new DataModel(type, "item****" + type));
+            modelList.add(new DataModel(type, "item****" + i));
         }
         recyclerView.post(() -> {
             // Notify adapter with appropriate notify methods

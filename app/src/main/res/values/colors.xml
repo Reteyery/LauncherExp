@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <!-- 字体红 --> <color name="font_red">#D42B0E</color>
+    <!-- 字体灰 --> <color name="font_gray">#2c3341</color>
 
     <!-- 背景色 -->
     <!-- 纯黑色 --> <color name="bg_black">#95000000</color>
