@@ -8,6 +8,7 @@
     <string name="test_search">搜索测试</string>
     <string name="hot_search">热门搜索</string>
     <string name="radio">音乐电台</string>
+    <string name="snap">snapTest</string>
     <string name="search_hint">suningOS</string>
     <string name="bt_cancel">取消</string>
     <color name="white">#ffffffff</color>

@@ -2,13 +2,13 @@ package com.reteyery.launcherexp.test;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.reteyery.launcherexp.MainActivity;
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.base.BaseActivity;
+import com.reteyery.launcherexp.test.activity.MediaSelectActivity;
 import com.reteyery.launcherexp.test.activity.MovieListActivity;
 import com.reteyery.launcherexp.test.activity.SearchMovieActivity;
 
@@ -23,8 +23,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     TextView tvRadio;
     @BindView(R.id.tv_search)
     TextView tvSearch;
-    @BindView(R.id.scrollView)
-    NestedScrollView scrollView;
+    @BindView(R.id.tv_snapTest)
+    TextView tvSnapTest;
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
         tvMovie.setOnClickListener(this);
         tvRadio.setOnClickListener(this);
         tvSearch.setOnClickListener(this);
+        tvSnapTest.setOnClickListener(this);
     }
 
     @Override
@@ -59,6 +60,11 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.tv_snapTest:
+                intent = new Intent(this, MediaSelectActivity.class);
+                startActivity(intent);
+                break;
         }
     }
+
 }
