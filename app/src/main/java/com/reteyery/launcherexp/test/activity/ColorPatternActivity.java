@@ -2,6 +2,7 @@ package com.reteyery.launcherexp.test.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,10 +23,10 @@ public class ColorPatternActivity extends BaseActivity {
     View vMask;
     @BindView(R.id.iv_crop)
     ImageView ivCrop;
+    @BindView(R.id.v_color)
+    View vColor;
+
     Bitmap bitmap;
-
-    int vibrantDark;
-
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
         return View.inflate(this, R.layout.activity_mask, null);
@@ -41,7 +42,15 @@ public class ColorPatternActivity extends BaseActivity {
          */
         Bitmap cropBitmap = Bitmap.createBitmap(bitmap, 0, 390, 320, 120);
         ivCrop.setImageBitmap(cropBitmap);
-        Palette.from(cropBitmap).generate(palette -> vibrantDark = palette.getDarkVibrantColor(0x000000));
+        Palette.from(cropBitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(@NonNull Palette palette) {
+                //获取到充满活力的这种色调
+                Palette.Swatch vibrant = palette.getDarkMutedSwatch();
+                assert vibrant != null;
+                vColor.setBackgroundColor(vibrant.getRgb());
+            }
+        });
     }
 
     @Override
