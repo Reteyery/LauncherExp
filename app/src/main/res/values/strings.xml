@@ -11,5 +11,6 @@
     <string name="snap">snapTest</string>
     <string name="search_hint">suningOS</string>
     <string name="bt_cancel">取消</string>
+    <string name="mask">mask_test</string>
     <color name="white">#ffffffff</color>
 </resources>

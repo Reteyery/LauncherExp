@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.reteyery.launcherexp.MainActivity;
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.base.BaseActivity;
+import com.reteyery.launcherexp.test.activity.ColorPatternActivity;
 import com.reteyery.launcherexp.test.activity.MediaSelectActivity;
 import com.reteyery.launcherexp.test.activity.MovieListActivity;
 import com.reteyery.launcherexp.test.activity.SearchMovieActivity;
@@ -25,6 +26,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     TextView tvSearch;
     @BindView(R.id.tv_snapTest)
     TextView tvSnapTest;
+    @BindView(R.id.tv_maskTest)
+    TextView tvMaskTest;
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
         tvRadio.setOnClickListener(this);
         tvSearch.setOnClickListener(this);
         tvSnapTest.setOnClickListener(this);
+        tvMaskTest.setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +66,10 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_snapTest:
                 intent = new Intent(this, MediaSelectActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_maskTest:
+                intent = new Intent(this, ColorPatternActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -1,32 +1,38 @@
 package com.reteyery.launcherexp.util;
 
+import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.Relay;
+
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
 
 
 public class RxBus {
+    private static volatile RxBus instance;
+    private final Relay<Object> mBus;
 
-    private final Subject<Object> mBus;
-
-    private RxBus() {
-        mBus = PublishSubject.create().toSerialized();
+    public RxBus() {
+        this.mBus = PublishRelay.create().toSerialized();
     }
 
     public static RxBus getInstance() {
-        return Holder.BUS;
+        if (instance == null) {
+            synchronized (RxBus.class) {
+                if (instance == null) {
+                    instance = Holder.BUS;
+                }
+            }
+        }
+        return instance;
+    }
+    public void post(Object obj) {
+        mBus.accept(obj);
     }
 
-    public void post(@NonNull Object obj) {
-        mBus.onNext(obj);
+    public <T> Observable<T> toObservable(Class<T> tClass) {
+        return  mBus.ofType(tClass);
     }
 
-    public <T> Observable<T> register(Class<T> tClass) {
-        return mBus.ofType(tClass);
-    }
-
-    public Observable<Object> register() {
+    public Observable<Object> toObservable() {
         return mBus;
     }
 
@@ -34,13 +40,7 @@ public class RxBus {
         return mBus.hasObservers();
     }
 
-    public void unregisterAll() {
-        //会将所有由mBus生成的Observable都置completed状态,后续的所有消息都收不到了
-        mBus.onComplete();
-    }
-
     private static class Holder {
         private static final RxBus BUS = new RxBus();
     }
-
 }

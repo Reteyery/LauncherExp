@@ -62,4 +62,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_movie"
         android:layout_marginStart="@dimen/margin_bound_2x"
         android:layout_marginTop="@dimen/margin_bound_2x" />
+    <TextView
+        android:id="@+id/tv_maskTest"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="@string/mask"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/tv_snapTest"
+        app:layout_constraintRight_toRightOf="@+id/tv_search"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_search"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search"
+        android:layout_marginTop="@dimen/margin_bound_2x" />
 </android.support.constraint.ConstraintLayout>
