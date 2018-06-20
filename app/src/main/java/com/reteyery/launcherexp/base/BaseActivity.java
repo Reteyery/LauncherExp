@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 
@@ -23,6 +24,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initOperation();
 
     protected abstract void initData();
+    protected void toast(String content){
+        Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onResume() {

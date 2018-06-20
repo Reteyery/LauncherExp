@@ -3,24 +3,30 @@ package com.reteyery.launcherexp.test.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.test.activity.MovieListActivity;
 import com.reteyery.launcherexp.test.activity.SearchMovieActivity;
+import com.reteyery.launcherexp.test.entity.MovieListFilterObj;
+import com.reteyery.launcherexp.util.Constants;
+import com.reteyery.launcherexp.view.tablayout.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListHolder> {
     private List<MovieListActivity.DataModel> modelList;
     private static final int IS_HEADER = 10000;
-    Context context;
+    private Context context;
+    private List<MovieListFilterObj.DataBean.AreaItemListBean> area_item_list;
+    private List<MovieListFilterObj.DataBean.OrderItemListBean> order_item_list;
+    private List<MovieListFilterObj.DataBean.TagItemListBean> tag_item_list;
+    private List<MovieListFilterObj.DataBean.YearItemListBean> year_item_list;
     @NonNull
     @Override
     public MovieListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,13 +43,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     private void initHeader(View view) {
         TabLayout tabOrder = view.findViewById(R.id.tbl_order);
-        initData(tabOrder);
+        initData(tabOrder, 1);
         TabLayout tabType = view.findViewById(R.id.tbl_type);
-        initData(tabType);
+        initData(tabType, 2);
         TabLayout tabRegion = view.findViewById(R.id.tbl_region);
-        initData(tabRegion);
+        initData(tabRegion, 3);
         TabLayout tabTime = view.findViewById(R.id.tbl_time);
-        initData(tabTime);
+        initData(tabTime, 4);
         ImageButton searchBtn = view.findViewById(R.id.ib_search);
         searchBtn.setOnClickListener(v -> {
             Intent intent = new Intent(context, SearchMovieActivity.class);
@@ -51,40 +57,67 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         });
     }
 
-    private void initData(TabLayout tabLayout) {
-        List<String> titleList = new ArrayList<>();
-        titleList.add("最近更新");
-        titleList.add("最高人气");
-        titleList.add("最受好评");
-        titleList.add("最热动漫");
-        titleList.add("最热武侠");
-        titleList.add("最火偶像");
-        for (String s : titleList){
-            TabLayout.Tab tab = tabLayout.newTab();
-            tab.setText(s);
-            tabLayout.addTab(tab);
+    private void initData(TabLayout tabLayout, int type) {
+        Gson gson = new Gson();
+        MovieListFilterObj filterObj = gson.fromJson(Constants.ITEM_FILTER, MovieListFilterObj.class);
+        if (null != filterObj){
+            area_item_list = filterObj.getData().getArea_item_list();
+            order_item_list = filterObj.getData().getOrder_item_list();
+            tag_item_list = filterObj.getData().getTag_item_list();
+            year_item_list = filterObj.getData().getYear_item_list();
         }
+        switch (type){
+            case 1:
+                for (MovieListFilterObj.DataBean.AreaItemListBean areaItemListBean : area_item_list){
+                    TabLayout.Tab tab = tabLayout.newTab();
+                    tab.setText(areaItemListBean.getItem_name());
+                    tabLayout.addTab(tab);
+                }
+                break;
+            case 2:
+                for (MovieListFilterObj.DataBean.OrderItemListBean orderItemListBean : order_item_list){
+                    TabLayout.Tab tab = tabLayout.newTab();
+                    tab.setText(orderItemListBean.getItem_name());
+                    tabLayout.addTab(tab);
+                }
+                break;
+            case 3:
+                for (MovieListFilterObj.DataBean.TagItemListBean tagItemListBean : tag_item_list){
+                    TabLayout.Tab tab = tabLayout.newTab();
+                    tab.setText(tagItemListBean.getItem_name());
+                    tabLayout.addTab(tab);
+                }
+                break;
+            case 4:
+                for (MovieListFilterObj.DataBean.YearItemListBean yearItemListBean : year_item_list){
+                    TabLayout.Tab tab = tabLayout.newTab();
+                    tab.setText(yearItemListBean.getItem_name());
+                    tabLayout.addTab(tab);
+                }
+                break;
+        }
+
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0){
-            return IS_HEADER;
-        }else {
-            return modelList.get(position - 1).getType();
-        }
+//        if (position == 0){
+//            return IS_HEADER;
+//        }else {
+            return modelList.get(position).getType();
+//        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieListHolder holder, int position) {
         if (position > 0){
-            holder.tvName.setText(modelList.get(position - 1).getValue());
+            holder.tvName.setText(modelList.get(position).getValue());
         }
     }
 
     @Override
     public int getItemCount() {
-        return modelList.size() + 1;
+        return modelList.size();
     }
 
     public void setModelList(List<MovieListActivity.DataModel> modelList) {

@@ -22,7 +22,7 @@
             android:layout_marginStart="@dimen/margin_bound"
             android:textSize="@dimen/title_filter_size" />
 
-        <android.support.design.widget.TabLayout
+        <com.reteyery.launcherexp.view.tablayout.TabLayout
             android:id="@+id/tbl_order"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_filter_title"
@@ -36,15 +36,15 @@
             app:tabTextColor="@color/font_gray"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="0dp" />
+
         <ImageButton
             android:id="@+id/ib_search"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_filter_title"
+            android:layout_height="29dp"
             android:src="@mipmap/icon_search"
-            android:layout_marginStart="@dimen/margin_bound"
+            app:layout_constraintLeft_toRightOf="@+id/tbl_order"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tbl_order"
-            app:layout_constraintLeft_toRightOf="@+id/tbl_order"/>
+            app:layout_constraintTop_toTopOf="@+id/tbl_order" />
 
         <TextView
             android:id="@+id/tv_all_type"
@@ -56,7 +56,7 @@
             android:layout_marginStart="@dimen/margin_bound"
             android:textSize="@dimen/title_filter_size"
             android:text="全部类型"/>
-        <android.support.design.widget.TabLayout
+        <com.reteyery.launcherexp.view.tablayout.TabLayout
             android:id="@+id/tbl_type"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_filter_title"
@@ -79,7 +79,7 @@
             android:textSize="@dimen/title_filter_size"
             android:layout_marginStart="@dimen/margin_bound"
             app:layout_constraintTop_toBottomOf="@+id/tv_all_type"/>
-        <android.support.design.widget.TabLayout
+        <com.reteyery.launcherexp.view.tablayout.TabLayout
             android:id="@+id/tbl_region"
             android:layout_width="0dp"
             android:layout_marginStart="@dimen/margin_bound_2x"
@@ -102,7 +102,7 @@
             android:textSize="@dimen/title_filter_size"
             android:layout_marginStart="@dimen/margin_bound"
             app:layout_constraintTop_toBottomOf="@+id/tv_all_region"/>
-        <android.support.design.widget.TabLayout
+        <com.reteyery.launcherexp.view.tablayout.TabLayout
             android:id="@+id/tbl_time"
             android:layout_width="0dp"
             android:layout_marginStart="@dimen/margin_bound_2x"

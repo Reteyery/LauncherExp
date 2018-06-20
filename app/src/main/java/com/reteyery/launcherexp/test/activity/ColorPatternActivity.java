@@ -7,6 +7,7 @@ import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.base.BaseActivity;
@@ -48,6 +49,7 @@ public class ColorPatternActivity extends BaseActivity {
                 //获取到充满活力的这种色调
                 Palette.Swatch vibrant = palette.getDarkMutedSwatch();
                 assert vibrant != null;
+                toast(vibrant.getRgb() + "");
                 vColor.setBackgroundColor(vibrant.getRgb());
             }
         });
