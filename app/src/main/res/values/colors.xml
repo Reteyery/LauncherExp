@@ -14,4 +14,5 @@
     <color name="list_bg">#253047</color>
     <color name="greenyellow">#ADFF2F</color>
     <color name="light_grey">#666666</color>
+    <color name="transprant">#80000000</color>
 </resources>
