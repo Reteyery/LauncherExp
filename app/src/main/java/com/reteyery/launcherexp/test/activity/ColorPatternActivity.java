@@ -43,15 +43,11 @@ public class ColorPatternActivity extends BaseActivity {
          */
         Bitmap cropBitmap = Bitmap.createBitmap(bitmap, 0, 390, 320, 120);
         ivCrop.setImageBitmap(cropBitmap);
-        Palette.from(cropBitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(@NonNull Palette palette) {
-                //获取到充满活力的这种色调
-                Palette.Swatch vibrant = palette.getDarkMutedSwatch();
-                assert vibrant != null;
-                toast(vibrant.getRgb() + "");
-                vColor.setBackgroundColor(vibrant.getRgb());
-            }
+        Palette.from(cropBitmap).generate(palette -> {
+            Palette.Swatch vibrant = palette.getDarkMutedSwatch();
+            assert vibrant != null;
+            ColorPatternActivity.this.toast(vibrant.getRgb() + "");
+            vColor.setBackgroundColor(vibrant.getRgb());
         });
     }
 

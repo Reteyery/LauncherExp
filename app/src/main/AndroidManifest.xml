@@ -64,6 +64,11 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoBar"
             android:screenOrientation="landscape" />
+        <activity android:name=".test.activity.LoadingActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoBar"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

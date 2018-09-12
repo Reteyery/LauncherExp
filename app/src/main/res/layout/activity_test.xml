@@ -74,5 +74,19 @@
         app:layout_constraintRight_toRightOf="@+id/tv_search"
         app:layout_constraintLeft_toLeftOf="@+id/tv_search"
         app:layout_constraintTop_toBottomOf="@+id/tv_search"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_snapTest"
         android:layout_marginTop="@dimen/margin_bound_2x" />
+    <TextView
+        android:id="@+id/tv_loadingTest"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_bound_4x"
+        android:layout_marginEnd="@dimen/margin_bound_2x"
+        android:layout_marginBottom="@dimen/margin_bound_0.5x"
+        android:background="@color/colorPrimary"
+        android:text="@string/radio"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="@+id/tv_maskTest"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tv_radio"
+        android:gravity="center"/>
 </android.support.constraint.ConstraintLayout>

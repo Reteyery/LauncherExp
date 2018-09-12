@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="os_music_height">384dp</dimen>
+    <dimen name="os_music_width">636dp</dimen>
+    <dimen name="os_music_btn_w_h">90dp</dimen>
+    <dimen name="os_textsize_4.8x">48sp</dimen>
+    <dimen name="os_textsize_3x">30sp</dimen>
+    <dimen name="os_line_height">18sp</dimen>
+
+    <dimen name="os_margin_bound_1.8x">18dp</dimen>
+    <dimen name="os_margin_bound_3x">30dp</dimen>
+    <dimen name="os_margin_bound_4.8x">48dp</dimen>
+    <dimen name="os_margin_bound_5.4x">54dp</dimen>
+    <dimen name="os_margin_bound_6x">60dp</dimen>
+    <dimen name="os_margin_bound_8.4x">84dp</dimen>
+</resources>

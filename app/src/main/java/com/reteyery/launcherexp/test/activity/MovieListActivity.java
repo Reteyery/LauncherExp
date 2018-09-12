@@ -87,9 +87,9 @@ public class MovieListActivity extends FragmentActivity implements MovieRecycler
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position == 0) {
+                if (position == 0 || position == (modelList.size() - 1)) {
                     return 5;
-                } else {
+                } else{
                     return modelList.get(position - 1).getType();
                 }
             }

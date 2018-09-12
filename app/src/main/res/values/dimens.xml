@@ -28,4 +28,18 @@
     <dimen name="height_filter_title">30dp</dimen>
     <!--字体-->
     <dimen name="title_filter_size">16sp</dimen>
+
+    <!--widget-music-->
+    <dimen name="os_music_height">128dp</dimen>
+    <dimen name="os_music_width">212dp</dimen>
+    <dimen name="os_music_btn_w_h">30dp</dimen>
+    <dimen name="os_textsize_4.8x">16sp</dimen>
+    <dimen name="os_textsize_3x">10sp</dimen>
+    <dimen name="os_line_height">6sp</dimen>
+    <dimen name="os_margin_bound_1.8x">6dp</dimen>
+    <dimen name="os_margin_bound_3x">10dp</dimen>
+    <dimen name="os_margin_bound_4.8x">12dp</dimen>
+    <dimen name="os_margin_bound_5.4x">18dp</dimen>
+    <dimen name="os_margin_bound_6x">20dp</dimen>
+    <dimen name="os_margin_bound_8.4x">28dp</dimen>
 </resources>

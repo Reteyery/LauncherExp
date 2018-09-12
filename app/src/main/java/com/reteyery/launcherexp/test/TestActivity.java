@@ -9,6 +9,7 @@ import com.reteyery.launcherexp.MainActivity;
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.base.BaseActivity;
 import com.reteyery.launcherexp.test.activity.ColorPatternActivity;
+import com.reteyery.launcherexp.test.activity.LoadingActivity;
 import com.reteyery.launcherexp.test.activity.MediaSelectActivity;
 import com.reteyery.launcherexp.test.activity.MovieListActivity;
 import com.reteyery.launcherexp.test.activity.SearchMovieActivity;
@@ -28,6 +29,8 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
     TextView tvSnapTest;
     @BindView(R.id.tv_maskTest)
     TextView tvMaskTest;
+    @BindView(R.id.tv_loadingTest)
+    TextView tvLoadingTest;
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
         tvSearch.setOnClickListener(this);
         tvSnapTest.setOnClickListener(this);
         tvMaskTest.setOnClickListener(this);
+        tvLoadingTest.setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +76,9 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 intent = new Intent(this, ColorPatternActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.tv_loadingTest:
+                intent = new Intent(this, LoadingActivity.class);
+                startActivity(intent);
         }
     }
 
