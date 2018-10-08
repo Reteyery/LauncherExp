@@ -83,7 +83,7 @@
         android:layout_marginEnd="@dimen/margin_bound_2x"
         android:layout_marginBottom="@dimen/margin_bound_0.5x"
         android:background="@color/colorPrimary"
-        android:text="@string/radio"
+        android:text="@string/loading"
         android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="@+id/tv_maskTest"
         app:layout_constraintRight_toRightOf="parent"
