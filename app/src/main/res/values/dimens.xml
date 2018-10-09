@@ -42,4 +42,5 @@
     <dimen name="os_margin_bound_5.4x">18dp</dimen>
     <dimen name="os_margin_bound_6x">20dp</dimen>
     <dimen name="os_margin_bound_8.4x">28dp</dimen>
+    <dimen name="os_margin_bound_12x">40dp</dimen>
 </resources>

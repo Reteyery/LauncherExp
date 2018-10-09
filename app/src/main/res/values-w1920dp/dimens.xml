@@ -13,4 +13,5 @@
     <dimen name="os_margin_bound_5.4x">54dp</dimen>
     <dimen name="os_margin_bound_6x">60dp</dimen>
     <dimen name="os_margin_bound_8.4x">84dp</dimen>
+    <dimen name="os_margin_bound_12x">120dp</dimen>
 </resources>
