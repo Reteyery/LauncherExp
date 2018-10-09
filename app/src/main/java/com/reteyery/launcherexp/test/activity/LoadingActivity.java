@@ -73,15 +73,13 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Log.d(TAG, "scale*****cirOneEndToTurn:" + "  " + cirOneToTurn);
-                vLoading.clearAnimation();
                 vLoading.setAnimation(scaleToSmallAnimation);
                 scaleToSmallAnimation.start();
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                Log.d(TAG, "onAnimation repeat round 1 to big");
+
             }
         });
 
@@ -94,6 +92,7 @@ public class LoadingActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 scaleToSmallAnimation.cancel();
+
                 scaleToBigAnimation2.setStartOffset(250);
                 vLoading2.setAnimation(scaleToBigAnimation2);
                 scaleToBigAnimation2.start();
@@ -101,24 +100,18 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                Log.d(TAG, "onAnimation repeat round 1 to small");
+
             }
         });
 
         scaleToBigAnimation2.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                Log.d(TAG, "scaleToBigAnimation2*****start");
-                if (cirTwoToTurn){
-                    Log.d(TAG, "scaleToBigAnimation2*****start");
-                }
+
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (cirTwoToTurn){
-                    Log.d(TAG, "scaleToBigAnimation2*****start");
-                }
                 scaleToBigAnimation2.cancel();
                 vLoading2.clearAnimation();
                 vLoading2.setAnimation(scaleToSmallAnimation2);
@@ -127,7 +120,7 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                Log.d(TAG, "onAnimation repeat round 2 to big");
+
             }
         });
 
@@ -139,9 +132,8 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                cirTwoToTurn = true;
                 scaleToSmallAnimation2.cancel();
-//                vLoading2.clearAnimation();
+
                 scaleToBigAnimation3.setStartOffset(500);
                 vLoading3.setAnimation(scaleToBigAnimation3);
                 scaleToBigAnimation3.start();
@@ -149,7 +141,7 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                Log.d(TAG, "onAnimation repeat round 2 to small");
+
             }
         });
 
@@ -169,7 +161,7 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                Log.d(TAG, "onAnimation repeat round 3 to big");
+
             }
         });
 
@@ -182,16 +174,25 @@ public class LoadingActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 scaleToSmallAnimation3.cancel();
+
+                scaleToSmallAnimation.cancel();
+                scaleToBigAnimation.cancel();
+
+                scaleToSmallAnimation2.cancel();
+                scaleToBigAnimation2.cancel();
+
+                scaleToSmallAnimation3.cancel();
+                scaleToBigAnimation3.cancel();
+
+                scaleToBigAnimation2.setStartOffset(250);
+                scaleToBigAnimation3.setStartOffset(500);
                 vLoading.setAnimation(scaleToBigAnimation);
-                cirOneToTurn = true;
-                Log.d(TAG, "scale3*****cirOneToTurn:" + "  " + cirOneToTurn);
-                scaleToBigAnimation.setStartOffset(250);
                 scaleToBigAnimation.start();
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                Log.d(TAG, "onAnimation repeat round 3 to small");
+
             }
         });
 
