@@ -1,7 +1,6 @@
 package com.reteyery.launcherexp.test.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class LoadingActivity extends BaseActivity {
     final String TAG = this.getClass().getName();
@@ -173,8 +171,6 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                scaleToSmallAnimation3.cancel();
-
                 scaleToSmallAnimation.cancel();
                 scaleToBigAnimation.cancel();
 
@@ -184,8 +180,6 @@ public class LoadingActivity extends BaseActivity {
                 scaleToSmallAnimation3.cancel();
                 scaleToBigAnimation3.cancel();
 
-                scaleToBigAnimation2.setStartOffset(250);
-                scaleToBigAnimation3.setStartOffset(500);
                 vLoading.setAnimation(scaleToBigAnimation);
                 scaleToBigAnimation.start();
             }
