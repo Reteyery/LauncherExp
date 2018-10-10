@@ -11,6 +11,8 @@ import com.reteyery.launcherexp.view.CircleView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 
@@ -27,7 +29,6 @@ public class LoadingActivity extends BaseActivity {
             scaleToSmallAnimation, scaleToSmallAnimation2, scaleToSmallAnimation3;
 
     List<Animation> animList = new ArrayList<>();
-    boolean cirOneToTurn = false, cirTwoToTurn = false, cirThreeToTurn = false;
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
         return View.inflate(this, R.layout.activity_loading, null);
@@ -55,93 +56,34 @@ public class LoadingActivity extends BaseActivity {
 
     @Override
     protected void initOperation() {
-        vLoading.setAnimation(scaleToBigAnimation);
 
-        scaleToBigAnimation2.setStartOffset(250);
-        vLoading2.setAnimation(scaleToBigAnimation2);
-
-        scaleToBigAnimation3.setStartOffset(500);
-        vLoading3.setAnimation(scaleToBigAnimation3);
-
-        scaleToBigAnimation.setAnimationListener(new Animation.AnimationListener() {
+        new Timer().schedule(new TimerTask() {
             @Override
-            public void onAnimationStart(Animation animation) {
-
+            public void run() {
+                vLoading.setAnimation(scaleToBigAnimation);
+                scaleToBigAnimation.start();
             }
+        }, 0,1000);
 
+        new Timer().schedule(new TimerTask() {
             @Override
-            public void onAnimationEnd(Animation animation) {
+            public void run() {
                 vLoading.setAnimation(scaleToSmallAnimation);
-                scaleToSmallAnimation.start();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        scaleToSmallAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                scaleToSmallAnimation.cancel();
-
-                scaleToBigAnimation2.setStartOffset(250);
                 vLoading2.setAnimation(scaleToBigAnimation2);
+                scaleToSmallAnimation.start();
                 scaleToBigAnimation2.start();
             }
+        }, 250,1000);
 
+        new Timer().schedule(new TimerTask() {
             @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        scaleToBigAnimation2.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                scaleToBigAnimation2.cancel();
-                vLoading2.clearAnimation();
+            public void run() {
                 vLoading2.setAnimation(scaleToSmallAnimation2);
-                scaleToSmallAnimation2.start();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        scaleToSmallAnimation2.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                scaleToSmallAnimation2.cancel();
-
-                scaleToBigAnimation3.setStartOffset(500);
                 vLoading3.setAnimation(scaleToBigAnimation3);
+                scaleToSmallAnimation2.start();
                 scaleToBigAnimation3.start();
             }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
+        }, 500,1000);
 
         scaleToBigAnimation3.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -151,8 +93,6 @@ public class LoadingActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                scaleToBigAnimation3.cancel();
-                vLoading3.clearAnimation();
                 vLoading3.setAnimation(scaleToSmallAnimation3);
                 scaleToSmallAnimation3.start();
             }
@@ -162,36 +102,6 @@ public class LoadingActivity extends BaseActivity {
 
             }
         });
-
-        scaleToSmallAnimation3.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                scaleToSmallAnimation.cancel();
-                scaleToBigAnimation.cancel();
-
-                scaleToSmallAnimation2.cancel();
-                scaleToBigAnimation2.cancel();
-
-                scaleToSmallAnimation3.cancel();
-                scaleToBigAnimation3.cancel();
-
-                vLoading.setAnimation(scaleToBigAnimation);
-                scaleToBigAnimation.start();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        scaleToBigAnimation.start();
-
     }
 
 }
