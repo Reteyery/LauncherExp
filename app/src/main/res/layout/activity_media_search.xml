@@ -1,98 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/ll_search_bar"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/margin_bound_3x"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_search"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/bt_cancel"
-        android:layout_margin="@dimen/margin_bound"
-        android:layout_marginTop="@dimen/margin_bound">
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_bound"
-            android:src="@mipmap/icon_search"
-            android:layout_gravity="center"/>
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:text="@string/app_name"
-            android:maxLines="1"
-            style="@style/editTextStyle"
-            android:singleLine="true"
-            android:layout_marginStart="@dimen/margin_bound"/>
-    </LinearLayout>
-    <Button
-        android:id="@+id/bt_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_bound_2.5x"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ll_search_bar"
-        app:layout_constraintLeft_toRightOf="@+id/ll_search_bar"
-        app:layout_constraintBottom_toBottomOf="@id/ll_search_bar"
-        android:layout_marginEnd="@dimen/margin_bound"
-        android:background="@color/white"
-        android:text="@string/bt_cancel"/>
-
-    <LinearLayout
-        android:id="@+id/ll_search_recommend"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/margin_bound"
-        android:layout_marginTop="@dimen/margin_bound"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_search_bar">
-
-        <TextView
-            android:id="@+id/tv_search"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_bound_3x"
-            android:gravity="center_vertical"
-            android:text="@string/hot_search" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_search_result"
+    <com.reteyery.launcherexp.view.flowlayout.TagFlowLayout
+        android:id="@+id/flowlayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:visibility="visible"
-        android:layout_margin="@dimen/margin_bound"
-        android:layout_marginEnd="@dimen/margin_bound"
-        android:layout_marginTop="@dimen/margin_bound"
-        app:layout_constraintTop_toBottomOf="@+id/ll_search_bar"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_bound_3x"
-            app:tabMode="scrollable"
-            app:tabIndicatorColor="@color/greenyellow"
-            app:tabSelectedTextColor="@color/greenyellow"
-            app:tabGravity="center"/>
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+        android:layout_height="wrap_content"
+        app:max_select="1"/>
+</RelativeLayout>
