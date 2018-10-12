@@ -39,12 +39,6 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initOperation() {
-
-    }
-
-    @Override
-    protected void initData() {
-
         flowlayout.setAdapter(new TagAdapter<String>(itemList) {
 
             @Override
@@ -54,7 +48,10 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
                 return tv;
             }
         });
+    }
 
+    @Override
+    protected void initData() {
         itemList.add("我是传奇");
         itemList.add("魔兽");
         itemList.add("王者荣耀");
