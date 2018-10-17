@@ -3,10 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_main"
     android:orientation="vertical">
     <com.reteyery.launcherexp.view.flowlayout.TagFlowLayout
         android:id="@+id/flowlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:max_select="1"/>
+    <ImageView
+        android:id="@+id/iv_down"
+        android:layout_width="@dimen/os_margin_bound_4.8x"
+        android:layout_height="@dimen/os_margin_bound_4.8x"
+        android:src="@mipmap/icon_down"
+        android:visibility="gone"
+        android:layout_below="@id/flowlayout"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/os_margin_bound_1.8x"/>
 </RelativeLayout>

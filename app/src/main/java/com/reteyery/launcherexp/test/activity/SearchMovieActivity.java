@@ -3,6 +3,7 @@ package com.reteyery.launcherexp.test.activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.reteyery.launcherexp.R;
@@ -25,6 +26,9 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
     @BindView(R.id.flowlayout)
     TagFlowLayout flowlayout;
 
+    @BindView(R.id.iv_down)
+    ImageView ivDown;
+
     List<String> itemList = new ArrayList<>();
 
     @Override
@@ -34,13 +38,17 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_down:
 
+                break;
+        }
     }
 
     @Override
     protected void initOperation() {
+        ivDown.setOnClickListener(this);
         flowlayout.setAdapter(new TagAdapter<String>(itemList) {
-
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 TextView tv = (TextView) LayoutInflater.from(getBaseContext()).inflate(R.layout.tv, flowlayout, false);
@@ -77,4 +85,5 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
         itemList.add("蝙蝠侠：黑暗骑士的崛起");
         itemList.add("杀死比尔");
     }
+
 }

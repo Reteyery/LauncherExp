@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.LayoutDirection;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.text.TextUtilsCompat;
@@ -24,6 +25,7 @@ public class FlowLayout extends ViewGroup {
     protected List<List<View>> mAllViews = new ArrayList<List<View>>();
     protected List<Integer> mLineHeight = new ArrayList<Integer>();
     protected List<Integer> mLineWidth = new ArrayList<Integer>();
+    private boolean showSingleLine = false;
     private int mGravity;
     private List<View> lineViews = new ArrayList<>();
 
@@ -86,17 +88,28 @@ public class FlowLayout extends ViewGroup {
 
             if (lineWidth + childWidth > sizeWidth - getPaddingLeft() - getPaddingRight()) {
                 width = Math.max(width, lineWidth);
+                //当超出一行，lineWidth另起一行，从0开始，第一次宽度为该行第一个child宽度
                 lineWidth = childWidth;
+                //同理，行高增加一个child高度（child等高）
                 height += lineHeight;
                 lineHeight = childHeight;
+
+//                Log.d(TAG, "itemCount******:" + i);
+                if (i != cCount - 1){
+//                    Log.d(TAG, "from FlowLayout onMeasure******" + isSingleLine);
+                }
+                break;
             } else {
+                //没超出一行时，当前lineWidth等于linwWidth + childWidth
                 lineWidth += childWidth;
                 lineHeight = Math.max(lineHeight, childHeight);
             }
-            if (i == cCount - 1) {
-                width = Math.max(lineWidth, width);
-                height += lineHeight;
-            }
+//            if (i == cCount - 1) {
+//                //当item是最后一个时，最后的width和height
+//                width = Math.max(lineWidth, width);
+//                height += lineHeight;
+//            }
+
         }
         setMeasuredDimension(
                 //
