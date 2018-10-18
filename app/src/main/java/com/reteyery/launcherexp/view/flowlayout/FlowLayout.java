@@ -22,6 +22,7 @@ public class FlowLayout extends ViewGroup {
     private static final int CENTER = 0;
     private static final int RIGHT = 1;
     boolean singleLine = true;
+    boolean dataMoreThanOneRow = false;
     protected List<List<View>> mAllViews = new ArrayList<List<View>>();
     protected List<Integer> mLineHeight = new ArrayList<Integer>();
     protected List<Integer> mLineWidth = new ArrayList<Integer>();
@@ -99,6 +100,12 @@ public class FlowLayout extends ViewGroup {
                 //没超出一行时，当前lineWidth等于linwWidth + childWidth
                 lineWidth += childWidth;
                 lineHeight = Math.max(lineHeight, childHeight);
+                if (i == cCount - 1 && (lineWidth < sizeWidth - getPaddingLeft() - getPaddingRight())){
+                    dataMoreThanOneRow = false;
+                }else {
+                    dataMoreThanOneRow = true;
+                }
+
             }
 
             if (!singleLine){
@@ -232,12 +239,20 @@ public class FlowLayout extends ViewGroup {
     }
 
     public boolean isSingleLine() {
-        Log.d(TAG, "from FlowLayout isSingleLine******" + singleLine);
+//        Log.d(TAG, "from FlowLayout isSingleLine******" + singleLine);
         return singleLine;
     }
 
     public void  setSingleLine(boolean singleLine) {
         this.singleLine = singleLine;
-        Log.d(TAG, "from FlowLayout setSingleLine******" + singleLine);
+//        Log.d(TAG, "from FlowLayout setSingleLine******" + singleLine);
+    }
+
+    public boolean isDataMoreThanOneRow() {
+        return dataMoreThanOneRow;
+    }
+
+    public void setDataMoreThanOneRow(boolean dataMoreThanOneRow) {
+        this.dataMoreThanOneRow = dataMoreThanOneRow;
     }
 }

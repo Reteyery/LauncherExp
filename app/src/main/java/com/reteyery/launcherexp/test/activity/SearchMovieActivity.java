@@ -34,7 +34,7 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
     ImageView ivUp;
 
     List<String> itemList = new ArrayList<>();
-    boolean ivDropDown = true;
+    int ivDropDown = 0;
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -49,12 +49,14 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
                 flowlayout.requestLayout();
                 ivDown.setVisibility(View.GONE);
                 ivUp.setVisibility(View.VISIBLE);
+                ivDropDown = 1;
                 break;
             case R.id.iv_up:
                 flowlayout.setSingleLine(true);
                 flowlayout.requestLayout();
                 ivDown.setVisibility(View.VISIBLE);
                 ivUp.setVisibility(View.GONE);
+                ivDropDown = 2;
                 break;
         }
     }
@@ -75,7 +77,40 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
         flowlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                Log.d("FlowLayout", "from getViewTreeObserver SearchMovieActivity******" + flowlayout.isSingleLine());
+                if (flowlayout.isDataMoreThanOneRow()){
+                    switch (ivDropDown){
+                        case 0:
+                            ivDown.setVisibility(View.VISIBLE);
+                            ivUp.setVisibility(View.GONE);
+                            break;
+                        case 1:
+                            ivDown.setVisibility(View.GONE);
+                            ivUp.setVisibility(View.VISIBLE);
+                            break;
+                        case 2:
+                            ivDown.setVisibility(View.VISIBLE);
+                            ivUp.setVisibility(View.GONE);
+                            break;
+                    }
+
+                }else {
+                    switch (ivDropDown){
+                        case 0:
+                            ivDown.setVisibility(View.GONE);
+                            ivUp.setVisibility(View.GONE);
+                            break;
+                        case 1:
+                            ivDown.setVisibility(View.GONE);
+                            ivUp.setVisibility(View.VISIBLE);
+                            break;
+                        case 2:
+                            ivDown.setVisibility(View.VISIBLE);
+                            ivUp.setVisibility(View.GONE);
+                            break;
+                    }
+                }
+
+                Log.d("FlowLayout", "from SearchMovieActivity dataMoreThanOneRow******" + flowlayout.isDataMoreThanOneRow());
             }
         });
 
@@ -88,25 +123,27 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
         itemList.add("王者荣耀");
         itemList.add("塞尔达传说");
         itemList.add("喷射战士");
-        itemList.add("生化危机");
-        itemList.add("尼尔的机械纪元");
-        itemList.add("街头霸王");
-        itemList.add("银河护卫队");
-        itemList.add("星球大战");
-        itemList.add("蝙蝠侠：黑暗骑士的崛起");
-        itemList.add("杀死比尔");
-        itemList.add("我是传奇");
-        itemList.add("魔兽");
-        itemList.add("王者荣耀");
-        itemList.add("塞尔达传说");
-        itemList.add("喷射战士");
-        itemList.add("生化危机");
-        itemList.add("尼尔的机械纪元");
-        itemList.add("街头霸王");
-        itemList.add("银河护卫队");
-        itemList.add("星球大战");
-        itemList.add("蝙蝠侠：黑暗骑士的崛起");
-        itemList.add("杀死比尔");
+
+//        itemList.add("生化危机");
+//        itemList.add("尼尔的机械纪元");
+//        itemList.add("街头霸王");
+//        itemList.add("银河护卫队");
+//        itemList.add("星球大战");
+//        itemList.add("蝙蝠侠：黑暗骑士的崛起");
+//        itemList.add("杀死比尔");
+//        itemList.add("我是传奇");
+//        itemList.add("魔兽");
+//        itemList.add("王者荣耀");
+//        itemList.add("塞尔达传说");
+//        itemList.add("喷射战士");
+//        itemList.add("生化危机");
+//        itemList.add("尼尔的机械纪元");
+//        itemList.add("街头霸王");
+//        itemList.add("银河护卫队");
+//        itemList.add("星球大战");
+//        itemList.add("蝙蝠侠：黑暗骑士的崛起");
+//        itemList.add("杀死比尔");
+
     }
 
 }
