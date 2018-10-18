@@ -236,7 +236,7 @@ public class FlowLayout extends ViewGroup {
         return singleLine;
     }
 
-    public void setSingleLine(boolean singleLine) {
+    public void  setSingleLine(boolean singleLine) {
         this.singleLine = singleLine;
         Log.d(TAG, "from FlowLayout setSingleLine******" + singleLine);
     }

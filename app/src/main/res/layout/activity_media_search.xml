@@ -12,11 +12,20 @@
         app:max_select="1"/>
     <ImageView
         android:id="@+id/iv_down"
-        android:layout_width="@dimen/os_margin_bound_4.8x"
-        android:layout_height="@dimen/os_margin_bound_4.8x"
+        android:layout_width="@dimen/os_margin_bound_5.4x"
+        android:layout_height="@dimen/os_margin_bound_5.4x"
         android:src="@mipmap/icon_down"
-        android:visibility="gone"
         android:layout_below="@id/flowlayout"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/os_margin_bound_1.8x"/>
+    <ImageView
+        android:id="@+id/iv_up"
+        android:layout_width="@dimen/os_margin_bound_5.4x"
+        android:layout_height="@dimen/os_margin_bound_5.4x"
+        android:src="@mipmap/icon_down"
+        android:layout_below="@id/flowlayout"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:layout_margin="@dimen/os_margin_bound_1.8x"
+        android:rotation="180"/>
 </RelativeLayout>

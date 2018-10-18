@@ -28,11 +28,13 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
 
     @BindView(R.id.flowlayout)
     TagFlowLayout flowlayout;
-
     @BindView(R.id.iv_down)
     ImageView ivDown;
+    @BindView(R.id.iv_up)
+    ImageView ivUp;
 
     List<String> itemList = new ArrayList<>();
+    boolean ivDropDown = true;
 
     @Override
     protected View onCreateView(Bundle savedInstanceState) {
@@ -41,11 +43,18 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_down:
-                Toast.makeText(SearchMovieActivity.this, "show more", Toast.LENGTH_SHORT).show();
                 flowlayout.setSingleLine(false);
                 flowlayout.requestLayout();
+                ivDown.setVisibility(View.GONE);
+                ivUp.setVisibility(View.VISIBLE);
+                break;
+            case R.id.iv_up:
+                flowlayout.setSingleLine(true);
+                flowlayout.requestLayout();
+                ivDown.setVisibility(View.VISIBLE);
+                ivUp.setVisibility(View.GONE);
                 break;
         }
     }
@@ -53,6 +62,7 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initOperation() {
         ivDown.setOnClickListener(this);
+        ivUp.setOnClickListener(this);
         flowlayout.setAdapter(new TagAdapter<String>(itemList) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
@@ -65,11 +75,6 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
         flowlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if (flowlayout.isSingleLine()){
-                    ivDown.setVisibility(View.VISIBLE);
-                }else {
-                    ivDown.setVisibility(View.GONE);
-                }
                 Log.d("FlowLayout", "from getViewTreeObserver SearchMovieActivity******" + flowlayout.isSingleLine());
             }
         });
