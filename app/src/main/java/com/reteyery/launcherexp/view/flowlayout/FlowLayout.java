@@ -21,11 +21,10 @@ public class FlowLayout extends ViewGroup {
     private static final int LEFT = -1;
     private static final int CENTER = 0;
     private static final int RIGHT = 1;
-
+    boolean singleLine = true;
     protected List<List<View>> mAllViews = new ArrayList<List<View>>();
     protected List<Integer> mLineHeight = new ArrayList<Integer>();
     protected List<Integer> mLineWidth = new ArrayList<Integer>();
-    private boolean showSingleLine = false;
     private int mGravity;
     private List<View> lineViews = new ArrayList<>();
 
@@ -93,22 +92,22 @@ public class FlowLayout extends ViewGroup {
                 //同理，行高增加一个child高度（child等高）
                 height += lineHeight;
                 lineHeight = childHeight;
-
-//                Log.d(TAG, "itemCount******:" + i);
-                if (i != cCount - 1){
-//                    Log.d(TAG, "from FlowLayout onMeasure******" + isSingleLine);
+                if (singleLine){
+                    break;
                 }
-                break;
             } else {
                 //没超出一行时，当前lineWidth等于linwWidth + childWidth
                 lineWidth += childWidth;
                 lineHeight = Math.max(lineHeight, childHeight);
             }
-//            if (i == cCount - 1) {
-//                //当item是最后一个时，最后的width和height
-//                width = Math.max(lineWidth, width);
-//                height += lineHeight;
-//            }
+
+            if (!singleLine){
+                if (i == cCount - 1) {
+                    //当item是最后一个时，最后的width和height
+                    width = Math.max(lineWidth, width);
+                    height += lineHeight;
+                }
+            }
 
         }
         setMeasuredDimension(
@@ -167,7 +166,11 @@ public class FlowLayout extends ViewGroup {
         int top = getPaddingTop();
 
         int lineNum = mAllViews.size();
-
+        if (lineNum == 2){
+            setSingleLine(true);
+        }else {
+            setSingleLine(false);
+        }
         for (int i = 0; i < lineNum; i++) {
             lineViews = mAllViews.get(i);
             lineHeight = mLineHeight.get(i);
@@ -226,5 +229,15 @@ public class FlowLayout extends ViewGroup {
     @Override
     protected LayoutParams generateLayoutParams(LayoutParams p) {
         return new MarginLayoutParams(p);
+    }
+
+    public boolean isSingleLine() {
+        Log.d(TAG, "from FlowLayout isSingleLine******" + singleLine);
+        return singleLine;
+    }
+
+    public void setSingleLine(boolean singleLine) {
+        this.singleLine = singleLine;
+        Log.d(TAG, "from FlowLayout setSingleLine******" + singleLine);
     }
 }

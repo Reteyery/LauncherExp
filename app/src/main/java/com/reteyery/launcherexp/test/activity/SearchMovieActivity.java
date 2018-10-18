@@ -1,10 +1,13 @@
 package com.reteyery.launcherexp.test.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.reteyery.launcherexp.R;
 import com.reteyery.launcherexp.base.BaseActivity;
@@ -40,7 +43,9 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_down:
-
+                Toast.makeText(SearchMovieActivity.this, "show more", Toast.LENGTH_SHORT).show();
+                flowlayout.setSingleLine(false);
+                flowlayout.requestLayout();
                 break;
         }
     }
@@ -56,6 +61,19 @@ public class SearchMovieActivity extends BaseActivity implements View.OnClickLis
                 return tv;
             }
         });
+
+        flowlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (flowlayout.isSingleLine()){
+                    ivDown.setVisibility(View.VISIBLE);
+                }else {
+                    ivDown.setVisibility(View.GONE);
+                }
+                Log.d("FlowLayout", "from getViewTreeObserver SearchMovieActivity******" + flowlayout.isSingleLine());
+            }
+        });
+
     }
 
     @Override
